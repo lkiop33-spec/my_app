@@ -23,7 +23,19 @@ class User extends Authenticatable
         'email',
         'password',
         'rank_type',
+        'department_id',
+        'department',
+        'joined_at',
+        'last_login_at',
     ];
+
+    /**
+     * Get the department associated with the user.
+     */
+    public function departmentRel(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Department::class, 'department_id');
+    }
 
     /**
      * 표시용 이름 (닉네임이 있으면 닉네임, 없으면 이름)
@@ -53,6 +65,8 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'joined_at' => 'date',
+            'last_login_at' => 'datetime',
         ];
     }
 
@@ -62,5 +76,13 @@ class User extends Authenticatable
     public function posts(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Post::class);
+    }
+
+    /**
+     * Get the notices written by the user.
+     */
+    public function notices(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Notice::class);
     }
 }

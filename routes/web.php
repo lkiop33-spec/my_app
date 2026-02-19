@@ -27,6 +27,13 @@ Route::middleware('auth')->group(function () {
     // 사용자 관리
     Route::resource('users', \App\Http\Controllers\UserController::class)->only(['index', 'show']);
     Route::post('/users/{user}/rank', [\App\Http\Controllers\UserController::class, 'updateRank'])->name('users.updateRank');
+    Route::post('/users/{user}/department', [\App\Http\Controllers\UserController::class, 'updateDepartment'])->name('users.updateDepartment');
+
+    // 부서 관리
+    Route::resource('departments', \App\Http\Controllers\DepartmentController::class)->only(['index', 'store', 'destroy']);
+
+    // 공지사항
+    Route::resource('notices', \App\Http\Controllers\NoticeController::class);
 });
 
 require __DIR__.'/auth.php';

@@ -24,6 +24,12 @@
                     <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.*')">
                         사용자 관리
                     </x-nav-link>
+                    <x-nav-link :href="route('departments.index')" :active="request()->routeIs('departments.*')">
+                        부서 관리
+                    </x-nav-link>
+                    <x-nav-link :href="route('notices.index')" :active="request()->routeIs('notices.*')">
+                        공지사항
+                    </x-nav-link>
                 </div>
             </div>
 

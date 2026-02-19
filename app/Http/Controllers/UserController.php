@@ -17,8 +17,9 @@ class UserController extends Controller
     {
         $users = User::latest()->get();
         $geades = Geade::all();
+        $departments = \App\Models\Department::all();
 
-        return view('users.index', compact('users', 'geades'));
+        return view('users.index', compact('users', 'geades', 'departments'));
     }
 
     /**
@@ -41,5 +42,19 @@ class UserController extends Controller
         $user->update(['rank_type' => $validated['rank_type'] ?? null]);
 
         return redirect()->back()->with('status', '직급이 수정되었습니다.');
+    }
+
+    /**
+     * Update the user's department.
+     */
+    public function updateDepartment(Request $request, User $user): RedirectResponse
+    {
+        $validated = $request->validate([
+            'department_id' => 'nullable|exists:departments,id',
+        ]);
+
+        $user->update(['department_id' => $validated['department_id'] ?? null]);
+
+        return redirect()->back()->with('status', '부서가 수정되었습니다.');
     }
 }

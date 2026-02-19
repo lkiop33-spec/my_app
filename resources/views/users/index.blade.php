@@ -17,6 +17,7 @@
                                     <th scope="col" class="px-6 py-3">Name</th>
                                     <th scope="col" class="px-6 py-3">Email</th>
                                     <th scope="col" class="px-6 py-3">Rank</th>
+                                    <th scope="col" class="px-6 py-3">Department</th>
                                     <th scope="col" class="px-6 py-3">Joined Date</th>
                                 </tr>
                             </thead>
@@ -41,6 +42,19 @@
                                                     @foreach($geades as $geade)
                                                         <option value="{{ $geade->rank_type }}" {{ $user->rank_type == $geade->rank_type ? 'selected' : '' }}>
                                                             {{ $geade->rank_type }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </form>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <form action="{{ route('users.updateDepartment', $user) }}" method="POST">
+                                                @csrf
+                                                <select name="department_id" onchange="this.form.submit()" class="block w-full p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                                    <option value="">{{ __('None') }}</option>
+                                                    @foreach($departments as $department)
+                                                        <option value="{{ $department->id }}" {{ $user->department_id == $department->id ? 'selected' : '' }}>
+                                                            {{ $department->name }}
                                                         </option>
                                                     @endforeach
                                                 </select>
