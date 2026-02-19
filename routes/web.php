@@ -22,8 +22,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
     Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
 
-    // 직급 관리
     Route::resource('geades', \App\Http\Controllers\GeadeController::class)->only(['index', 'store', 'destroy']);
+
+    // 사용자 관리
+    Route::resource('users', \App\Http\Controllers\UserController::class)->only(['index', 'show']);
+    Route::post('/users/{user}/rank', [\App\Http\Controllers\UserController::class, 'updateRank'])->name('users.updateRank');
 });
 
 require __DIR__.'/auth.php';

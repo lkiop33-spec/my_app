@@ -31,6 +31,19 @@
         </div>
 
         <div>
+            <x-input-label for="rank_type" :value="__('Rank')" />
+            <select id="rank_type" name="rank_type" class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">
+                <option value="">{{ __('None') }}</option>
+                @foreach($geades as $geade)
+                    <option value="{{ $geade->rank_type }}" {{ old('rank_type', $user->rank_type) == $geade->rank_type ? 'selected' : '' }}>
+                        {{ $geade->rank_type }}
+                    </option>
+                @endforeach
+            </select>
+            <x-input-error class="mt-2" :messages="$errors->get('rank_type')" />
+        </div>
+
+        <div>
             <x-input-label for="email" value="이메일" />
             <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)" required autocomplete="username" />
             <x-input-error class="mt-2" :messages="$errors->get('email')" />

@@ -16,8 +16,10 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
+        $geades = \App\Models\Geade::all();
         return view('profile.edit', [
             'user' => $request->user(),
+            'geades' => $geades,
         ]);
     }
 

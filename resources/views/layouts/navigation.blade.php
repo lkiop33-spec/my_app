@@ -21,6 +21,9 @@
                     <x-nav-link :href="route('geades.index')" :active="request()->routeIs('geades.*')">
                         직급 관리
                     </x-nav-link>
+                    <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.*')">
+                        사용자 관리
+                    </x-nav-link>
                 </div>
             </div>
 
