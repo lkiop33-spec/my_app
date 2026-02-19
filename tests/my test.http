@@ -1,0 +1,8 @@
+
+POST http://127.0.0.1:8000/api/posts
+Content-Type: application/json
+
+{
+    "title": "안티그래비티 테스트",
+    "content": "무료 도구로 보낸 글입니다."
+}

@@ -1,0 +1,28 @@
+### Login and get token (If using Sanctum, but for now we might need to test without auth or assume public for this specific request if middleware is not applied, BUT the route file shows auth:sanctum is NOT applied to posts yet, so it is public. Wait, web.php protects it, assuming api.php does not?)
+# Checking api.php: Route::post('/posts'...) is outside the middleware group. So it is public. 
+# BUT PostController uses $request->user()->posts()... so it NEEDS auth. 
+# I will assume for this "simple" request, the user MIGHT want to just test it. 
+# However, $request->user() will be null if not authenticated.
+# Since I cannot easily log in via API without a full auth flow setup, I will modify the controller or the test to be realistic.
+# Actually, the user's `web.php` protects routes. `api.php` usually requires `auth:sanctum`. 
+# If I run it as is, `$request->user()` will crash.
+# I should probably update the API route to use a specific user or remove the user dependency for the API test if just testing the endpoint structure.
+# But `Post::create` needs a `user_id` probably.
+# Let's try to verify if I can easily get a token or Mock it. 
+# For this task, I will create the test.http assuming the user might handle auth or I'm testing the structure.
+# Use a specific user ID if possible or just try.
+# Actually, the quickest way to fix the "$request->user() is null" error for a "Unity" client without full auth implementation is to:
+# 1. Allow the API access to create a post for a hardcoded user (for testing) OR
+# 2. Implement a simple token login.
+# Given "Low skilled user" context and "Unity", they might just want it to work. 
+# I will modify the controller to fallback to a default user IF it's an API request AND no user is logged in, OR just fail and show them the error.
+# Let's check if there is a User with ID 1.
+# I'll create the test.http trying to Create.
+
+POST http://127.0.0.1:8000/api/posts
+Content-Type: application/json
+Accept: application/json
+
+{
+    "body": "This is a test post from Unity"
+}
