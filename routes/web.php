@@ -8,9 +8,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [\App\Http\Controllers\WsspDashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/wssp/dashboard', [\App\Http\Controllers\WsspDashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('wssp.dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -34,6 +33,20 @@ Route::middleware('auth')->group(function () {
 
     // 공지사항
     Route::resource('notices', \App\Http\Controllers\NoticeController::class);
+    // 추가된 13개 테이블 웹 라우트
+    Route::resource('locations', \App\Http\Controllers\LocationController::class);
+    Route::resource('parts', \App\Http\Controllers\PartController::class);
+    Route::resource('levels', \App\Http\Controllers\LevelController::class);
+    Route::resource('work_lists', \App\Http\Controllers\WorkListController::class);
+    Route::resource('pcb_tables', \App\Http\Controllers\PcbTableController::class);
+    Route::resource('part_tables', \App\Http\Controllers\PartTableController::class);
+    Route::resource('process_tables', \App\Http\Controllers\ProcessTableController::class);
+    Route::resource('pcb_image_tables', \App\Http\Controllers\PcbImageTableController::class);
+    Route::resource('doc_lists', \App\Http\Controllers\DocListController::class);
+    Route::resource('types', \App\Http\Controllers\TypeController::class);
+    Route::resource('languages', \App\Http\Controllers\LanguageController::class);
+    Route::resource('forbiddens', \App\Http\Controllers\ForbiddenController::class);
+    Route::resource('devices', \App\Http\Controllers\DeviceController::class);
 });
 
 require __DIR__.'/auth.php';

@@ -1,17 +1,17 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="font-semibold text-xl text-white leading-tight">
             {{ __('공지사항 보기') }}
         </h2>
     </x-slot>
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <div class="mb-6 border-b border-gray-200 dark:border-gray-700 pb-4">
+            <div class="bg-gray-800 dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-white dark:text-gray-100">
+                    <div class="mb-6 border-b border-gray-700 dark:border-gray-700 pb-4">
                         <h1 class="text-2xl font-bold mb-2">{{ $notice->title }}</h1>
-                        <div class="flex items-center text-sm text-gray-500 dark:text-gray-400 gap-4">
+                        <div class="flex items-center text-sm text-gray-400 dark:text-gray-400 gap-4">
                             <span>작성자: {{ $notice->user->name ?? 'Unknown' }}</span>
                             <span>작성일: {{ $notice->created_at->format('Y-m-d H:i') }}</span>
                         </div>
@@ -21,8 +21,8 @@
                         {{ $notice->content }}
                     </div>
 
-                    <div class="flex items-center justify-between border-t border-gray-200 dark:border-gray-700 pt-4">
-                        <a href="{{ route('notices.index') }}" class="text-gray-600 dark:text-gray-400 hover:underline">
+                    <div class="flex items-center justify-between border-t border-gray-700 dark:border-gray-700 pt-4">
+                        <a href="{{ route('notices.index') }}" class="text-gray-400 dark:text-gray-400 hover:underline">
                             &larr; 목록으로 돌아가기
                         </a>
 

@@ -15,12 +15,12 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
+        <div class="min-h-screen bg-gray-900">
             @include('layouts.navigation')
 
             <!-- Page Heading -->
             @isset($header)
-                <header class="bg-white shadow">
+                <header class="bg-gray-800 shadow">
                     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                         {{ $header }}
                     </div>
@@ -32,7 +32,7 @@
                 {{ $slot }}
             </main>
 
-            <footer class="py-6 text-center text-sm text-gray-500">
+            <footer class="py-6 text-center text-sm text-gray-400">
                 &copy; 2025 COTAX. All rights reserved.
             </footer>
         </div>

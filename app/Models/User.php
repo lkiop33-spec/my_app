@@ -27,6 +27,16 @@ class User extends Authenticatable
         'department',
         'joined_at',
         'last_login_at',
+        'birth_date',
+        'location',
+        'part',
+        'account_id',
+        'last_access',
+        'level',
+        'phone',
+        'interphone',
+        'photo',
+        'join_date',
     ];
 
     /**

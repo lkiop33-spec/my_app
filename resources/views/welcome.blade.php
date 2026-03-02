@@ -34,12 +34,11 @@
         <!-- Hero Section -->
         <main class="flex-grow container mx-auto px-6 flex flex-col lg:flex-row items-center justify-center gap-12 py-12 lg:py-20">
             <div class="lg:w-1/2 space-y-8 text-center lg:text-left z-10">
-                <h1 class="text-5xl lg:text-7xl font-bold leading-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">
-                    Unlock Real-time <br />
-                    Data Insights
+                <h1 class="text-4xl lg:text-5xl font-bold leading-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">
+                    저숙련자 작업지원 플랫폼
                 </h1>
                 <p class="text-xl text-gray-400 max-w-2xl mx-auto lg:mx-0">
-                    Transform your raw data into actionable intelligence with our advanced analytics platform. Secure, scalable, and built for teams.
+                    Low-Skilled Worker Support Platform
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                     <a href="#" class="px-8 py-4 bg-indigo-600 hover:bg-indigo-700 rounded-xl text-lg font-semibold transition shadow-lg shadow-indigo-500/20">Start Analyzing</a>
