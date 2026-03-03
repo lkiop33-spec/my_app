@@ -30,6 +30,9 @@
                     <x-nav-link :href="route('notices.index')" :active="request()->routeIs('notices.*')">
                         공지사항
                     </x-nav-link>
+                    <x-nav-link :href="route('system_logs.index')" :active="request()->routeIs('system_logs.*')">
+                        시스템 로그
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -108,6 +111,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('posts.index')" :active="request()->routeIs('posts.*')">
                 간단 게시판
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('system_logs.index')" :active="request()->routeIs('system_logs.*')">
+                시스템 로그
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('locations.index')" :active="request()->routeIs('locations.*')">Locations</x-responsive-nav-link>
             <x-responsive-nav-link :href="route('parts.index')" :active="request()->routeIs('parts.*')">Parts</x-responsive-nav-link>

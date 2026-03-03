@@ -47,6 +47,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('languages', \App\Http\Controllers\LanguageController::class);
     Route::resource('forbiddens', \App\Http\Controllers\ForbiddenController::class);
     Route::resource('devices', \App\Http\Controllers\DeviceController::class);
+    
+    // 시스템 로그
+    Route::get('system_logs', [\App\Http\Controllers\SystemLogController::class, 'index'])->name('system_logs.index');
 });
 
 require __DIR__.'/auth.php';

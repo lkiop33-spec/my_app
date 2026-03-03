@@ -158,6 +158,20 @@
 | `location` | integer     | Not Null           | 단말기 사용 위치 (FK: locations) |
 | `version`  | varchar(20) | Not Null           | 설치 앱 버전                     |
 
+#### 15. `system_logs` (시스템 로그 - 자동 생성 내역)
+| 컬럼명        | 타입         | 제약조건           | 설명                                        |
+| :------------ | :----------- | :----------------- | :------------------------------------------ |
+| `id`          | bigInteger   | PK, Auto Increment | 고유 ID                                     |
+| `user_id`     | bigInteger   | Nullable           | 동작을 수행한 사용자 ID (FK: users/members) |
+| `model_type`  | varchar(255) | Nullable           | 변경된 데이터의 모델 이름 (테이블 종류)     |
+| `model_id`    | bigInteger   | Nullable           | 변경된 데이터의 고유 ID                     |
+| `action`      | varchar(255) | Not Null           | 동작 유형 (created, updated, deleted)       |
+| `old_payload` | json         | Nullable           | 변경 전의 데이터 내용                       |
+| `new_payload` | json         | Nullable           | 변경 후의 데이터 내용                       |
+| `ip_address`  | varchar(255) | Nullable           | 접속 IP 주소                                |
+| `created_at`  | timestamp    | Nullable           | 로그 생성 일시                              |
+| `updated_at`  | timestamp    | Nullable           | 로그 수정 일시                              |
+
 > **참고사항 (추후 반영 예정):**
 > *   `connector_tables`
 > *   `bonding_structure_tables`
