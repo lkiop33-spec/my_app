@@ -11,6 +11,7 @@ class WorkingList extends Model
 
     protected $fillable = [
         'no',
+        'worker_name',
         'text',
         'datetime',
     ];

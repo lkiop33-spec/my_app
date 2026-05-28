@@ -19,11 +19,12 @@ class WorkingListController extends Controller
             $search = $request->input('search');
             $query->where(function($q) use ($search) {
                 $q->where('no', 'like', "%{$search}%")
+                  ->orWhere('worker_name', 'like', "%{$search}%")
                   ->orWhere('text', 'like', "%{$search}%");
             });
         }
 
-        $items = $query->latest('datetime')->paginate(10)->withQueryString();
+        $items = $query->latest('id')->paginate(30)->withQueryString();
 
         return view('working_lists.index', compact('items'));
     }
@@ -43,12 +44,14 @@ class WorkingListController extends Controller
     {
         $request->validate([
             'no' => 'required|string|max:50',
+            'worker_name' => 'nullable|string|max:100',
             'text' => 'nullable|string',
             'datetime' => 'nullable|date',
         ]);
 
         WorkingList::create([
             'no' => $request->input('no'),
+            'worker_name' => $request->input('worker_name'),
             'text' => $request->input('text'),
             'datetime' => $request->input('datetime') ?? now(),
         ]);
@@ -80,12 +83,14 @@ class WorkingListController extends Controller
     {
         $request->validate([
             'no' => 'required|string|max:50',
+            'worker_name' => 'nullable|string|max:100',
             'text' => 'nullable|string',
             'datetime' => 'nullable|date',
         ]);
 
         $workingList->update([
             'no' => $request->input('no'),
+            'worker_name' => $request->input('worker_name'),
             'text' => $request->input('text'),
             'datetime' => $request->input('datetime') ?? $workingList->datetime,
         ]);

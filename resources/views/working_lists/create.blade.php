@@ -33,6 +33,16 @@
                         @enderror
                     </div>
 
+                    <!-- 작업자 이름 (worker_name) -->
+                    <div>
+                        <label for="worker_name" class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">작업자 이름 (Worker Name)</label>
+                        <input type="text" name="worker_name" id="worker_name" value="{{ old('worker_name') }}" placeholder="예: 김태우" 
+                               class="w-full rounded-xl border-gray-700 bg-gray-900 text-gray-200 placeholder-gray-500 text-sm p-3 focus:border-indigo-500 focus:ring-indigo-500 @error('worker_name') border-red-500 @enderror">
+                        @error('worker_name')
+                            <p class="mt-2 text-xs text-red-400">{{ $message }}</p>
+                        @enderror
+                    </div>
+
                     <!-- 2. 작업 일시 (datetime) -->
                     <div>
                         <label for="datetime" class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">작업 일시 (Datetime)</label>

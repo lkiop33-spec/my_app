@@ -19,7 +19,7 @@
             
             <!-- 성공 알림창 -->
             @if(session('success'))
-                <div class="mb-6 p-4 bg-green-900/30 border border-green-500/30 text-green-400 rounded-xl shadow-lg flex items-center space-x-2">
+                <div class="mb-6 p-4 bg-green-900/30 border border-green-500/30 text-green-400 rounded-none shadow-lg flex items-center space-x-2">
                     <svg class="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
@@ -28,9 +28,9 @@
             @endif
 
             <!-- 메인 카드 패널 -->
-            <div class="bg-gray-800 border border-gray-700/60 shadow-xl rounded-2xl overflow-hidden">
+            <div class="bg-gray-800 border border-gray-700/60 shadow-xl rounded-none overflow-hidden">
                 
-                <!-- 테이블 헤더 및 검색/액션 영역 -->
+                <!-- 테이블 헤더 영역 -->
                 <div class="p-6 border-b border-gray-700 bg-gray-800/80 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                     <div>
                         <h3 class="text-lg font-bold text-white flex items-center">
@@ -44,7 +44,6 @@
                             실시간으로 올라오는 공정 작업 결과를 수집 및 기록하고, 연결된 현장 AR 글래스 단말로 최신 지침 정보를 즉시 송신합니다.
                         </p>
                     </div>
-
                 </div>
 
                 <!-- 작업 목록 테이블 -->
@@ -54,6 +53,7 @@
                             <tr>
                                 <th class="px-6 py-4 text-left text-xs font-bold text-gray-400 uppercase tracking-wider">ID</th>
                                 <th class="px-6 py-4 text-left text-xs font-bold text-gray-400 uppercase tracking-wider">작업 번호 (No)</th>
+                                <th class="px-6 py-4 text-left text-xs font-bold text-gray-400 uppercase tracking-wider">작업자 (Worker)</th>
                                 <th class="px-6 py-4 text-left text-xs font-bold text-gray-400 uppercase tracking-wider">작업 내용 (Text)</th>
                                 <th class="px-6 py-4 text-left text-xs font-bold text-gray-400 uppercase tracking-wider">기록 일시 (Datetime)</th>
                                 <th class="px-6 py-4 text-right text-xs font-bold text-gray-400 uppercase tracking-wider">액션</th>
@@ -67,6 +67,9 @@
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-xs font-bold text-indigo-300 font-mono">
                                         {{ $item->no }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-xs text-gray-200 font-semibold">
+                                        {{ $item->worker_name ?? '-' }}
                                     </td>
                                     <td class="px-6 py-4 text-xs text-gray-200 max-w-md truncate">
                                         {{ $item->text ?? '-' }}

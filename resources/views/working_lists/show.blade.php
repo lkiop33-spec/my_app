@@ -14,7 +14,7 @@
     <div class="py-12 bg-gray-900 min-h-screen text-gray-100">
         <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
             
-            <div class="bg-gray-800 border border-gray-700/60 shadow-2xl rounded-2xl overflow-hidden">
+            <div class="bg-gray-800 border border-gray-700/60 shadow-2xl rounded-none overflow-hidden">
                 
                 <!-- 상세 헤더 배너 -->
                 <div class="p-8 bg-gray-800/80 border-b border-gray-700/60 flex justify-between items-start">
@@ -29,6 +29,12 @@
                             </svg>
                             기록 일시: {{ $workingList->datetime ? $workingList->datetime->format('Y-m-d H:i:s') : '-' }}
                         </p>
+                        <p class="text-xs text-gray-400 mt-1 flex items-center">
+                            <svg class="w-3.5 h-3.5 mr-1 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            </svg>
+                            작업자: {{ $workingList->worker_name ?? '미지정' }}
+                        </p>
                     </div>
 
                     <span class="text-xs font-mono bg-gray-700/40 text-gray-300 border border-gray-600/30 px-3 py-1 rounded-lg">
@@ -40,13 +46,13 @@
                 <div class="p-8 space-y-6">
                     <div>
                         <h4 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">작업 세부 설명 (Text)</h4>
-                        <div class="bg-gray-900 rounded-xl p-5 border border-gray-800/80 min-h-[150px] whitespace-pre-wrap text-sm text-gray-200 leading-relaxed font-sans shadow-inner">
+                        <div class="bg-gray-900 rounded-none p-5 border border-gray-800/80 min-h-[150px] whitespace-pre-wrap text-sm text-gray-200 leading-relaxed font-sans shadow-inner">
                             {{ $workingList->text ?? '기록된 내용이 없습니다.' }}
                         </div>
                     </div>
 
                     <!-- 타임스탬프 메타 영역 -->
-                    <div class="grid grid-cols-2 gap-4 bg-gray-900/40 rounded-xl p-4 border border-gray-800/50 text-2xs font-mono text-gray-500">
+                    <div class="grid grid-cols-2 gap-4 bg-gray-900/40 rounded-none p-4 border border-gray-800/50 text-2xs font-mono text-gray-500">
                         <div>
                             <span>등록 시간 (Created At):</span>
                             <span class="block text-xs text-gray-400 mt-1">{{ $workingList->created_at ? $workingList->created_at->format('Y-m-d H:i:s') : '-' }}</span>
@@ -69,10 +75,10 @@
                     </form>
 
                     <div class="flex space-x-3">
-                        <a href="{{ route('working_lists.index') }}" class="px-4 py-2 bg-gray-900 hover:bg-gray-800 text-gray-400 border border-gray-800 rounded-xl text-xs font-semibold transition">
+                        <a href="{{ route('working_lists.index') }}" class="px-4 py-2 bg-gray-900 hover:bg-gray-800 text-gray-400 border border-gray-800 rounded-none text-xs font-semibold transition">
                             목록
                         </a>
-                        <a href="{{ route('working_lists.edit', $workingList) }}" class="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-semibold shadow-lg shadow-amber-600/20 hover:shadow-amber-600/30 transition-all">
+                        <a href="{{ route('working_lists.edit', $workingList) }}" class="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-none text-xs font-semibold shadow-lg shadow-amber-600/20 hover:shadow-amber-600/30 transition-all">
                             작업 편집
                         </a>
                     </div>

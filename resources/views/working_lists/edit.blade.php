@@ -14,7 +14,7 @@
     <div class="py-12 bg-gray-900 min-h-screen text-gray-100">
         <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
             
-            <div class="bg-gray-800 border border-gray-700/60 shadow-2xl rounded-2xl overflow-hidden p-8">
+            <div class="bg-gray-800 border border-gray-700/60 shadow-2xl rounded-none overflow-hidden p-8">
                 <div class="mb-6 border-b border-gray-700 pb-4 flex items-center justify-between">
                     <div>
                         <h3 class="text-base font-bold text-white">작업 상세 데이터 수정</h3>
@@ -33,8 +33,18 @@
                     <div>
                         <label for="no" class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">작업 번호 (No) <span class="text-red-500">*</span></label>
                         <input type="text" name="no" id="no" value="{{ old('no', $workingList->no) }}" required placeholder="예: WRK-2026-0001" 
-                               class="w-full rounded-xl border-gray-700 bg-gray-900 text-gray-200 placeholder-gray-500 text-sm p-3 focus:border-indigo-500 focus:ring-indigo-500 @error('no') border-red-500 @enderror">
+                               class="w-full rounded-none border-gray-700 bg-gray-900 text-gray-200 placeholder-gray-500 text-sm p-3 focus:border-indigo-500 focus:ring-indigo-500 @error('no') border-red-500 @enderror">
                         @error('no')
+                            <p class="mt-2 text-xs text-red-400">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <!-- 작업자 이름 (worker_name) -->
+                    <div>
+                        <label for="worker_name" class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">작업자 이름 (Worker Name)</label>
+                        <input type="text" name="worker_name" id="worker_name" value="{{ old('worker_name', $workingList->worker_name) }}" placeholder="예: 김태우" 
+                               class="w-full rounded-none border-gray-700 bg-gray-900 text-gray-200 placeholder-gray-500 text-sm p-3 focus:border-indigo-500 focus:ring-indigo-500 @error('worker_name') border-red-500 @enderror">
+                        @error('worker_name')
                             <p class="mt-2 text-xs text-red-400">{{ $message }}</p>
                         @enderror
                     </div>
@@ -43,7 +53,7 @@
                     <div>
                         <label for="datetime" class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">작업 일시 (Datetime)</label>
                         <input type="datetime-local" name="datetime" id="datetime" value="{{ old('datetime', $workingList->datetime ? $workingList->datetime->format('Y-m-d\TH:i') : '') }}"
-                               class="w-full rounded-xl border-gray-700 bg-gray-900 text-gray-200 text-sm p-3 focus:border-indigo-500 focus:ring-indigo-500">
+                               class="w-full rounded-none border-gray-700 bg-gray-900 text-gray-200 text-sm p-3 focus:border-indigo-500 focus:ring-indigo-500">
                         @error('datetime')
                             <p class="mt-2 text-xs text-red-400">{{ $message }}</p>
                         @enderror
@@ -53,7 +63,7 @@
                     <div>
                         <label for="text" class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">작업 내용 설명 (Text)</label>
                         <textarea name="text" id="text" rows="5" placeholder="누적 작업에 대한 세부 내용을 기록하세요..." 
-                                  class="w-full rounded-xl border-gray-700 bg-gray-900 text-gray-200 placeholder-gray-500 text-sm p-3 focus:border-indigo-500 focus:ring-indigo-500 @error('text') border-red-500 @enderror">{{ old('text', $workingList->text) }}</textarea>
+                                  class="w-full rounded-none border-gray-700 bg-gray-900 text-gray-200 placeholder-gray-500 text-sm p-3 focus:border-indigo-500 focus:ring-indigo-500 @error('text') border-red-500 @enderror">{{ old('text', $workingList->text) }}</textarea>
                         @error('text')
                             <p class="mt-2 text-xs text-red-400">{{ $message }}</p>
                         @enderror
@@ -61,10 +71,10 @@
 
                     <!-- 제출 영역 -->
                     <div class="flex justify-end space-x-3 pt-6 border-t border-gray-700">
-                        <a href="{{ route('working_lists.index') }}" class="px-5 py-2.5 bg-gray-900 hover:bg-gray-800 text-gray-400 border border-gray-800 rounded-xl text-xs font-semibold transition">
+                        <a href="{{ route('working_lists.index') }}" class="px-5 py-2.5 bg-gray-900 hover:bg-gray-800 text-gray-400 border border-gray-800 rounded-none text-xs font-semibold transition">
                             취소
                         </a>
-                        <button type="submit" class="px-5 py-2.5 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-semibold shadow-lg shadow-amber-600/20 hover:shadow-amber-600/30 transition-all">
+                        <button type="submit" class="px-5 py-2.5 bg-amber-600 hover:bg-amber-700 text-white rounded-none text-xs font-semibold shadow-lg shadow-amber-600/20 hover:shadow-amber-600/30 transition-all">
                             수정 반영
                         </button>
                     </div>
