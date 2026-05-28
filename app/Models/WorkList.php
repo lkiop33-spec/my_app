@@ -14,7 +14,28 @@ class WorkList extends Model
     
     protected $fillable = [
         'partList',
+        'partList_enc',
         'pcbIDX',
         'memberIDX',
     ];
+
+    protected function partList(): \Illuminate\Database\Eloquent\Casts\Attribute
+    {
+        return \Illuminate\Database\Eloquent\Casts\Attribute::make(
+            get: function ($value, $attributes) {
+                if (!empty($attributes['partList_enc'])) {
+                    try {
+                        return \Illuminate\Support\Facades\Crypt::decryptString($attributes['partList_enc']);
+                    } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
+                        return '*** DECRYPTION ERROR ***';
+                    }
+                }
+                return $value;
+            },
+            set: fn ($value) => [
+                'partList_enc' => \Illuminate\Support\Facades\Crypt::encryptString($value),
+                // Avoid rewriting the original column to bypass constraint/length issues
+            ]
+        );
+    }
 }

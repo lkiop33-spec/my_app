@@ -15,7 +15,47 @@ class PcbTable extends Model
     protected $fillable = [
         'PCB_Number',
         'Name_Type',
+        'Name_Type_enc',
         'Image_File',
+        'Image_File_enc',
         'Image_Side',
     ];
+
+    protected function NameType(): \Illuminate\Database\Eloquent\Casts\Attribute
+    {
+        return \Illuminate\Database\Eloquent\Casts\Attribute::make(
+            get: function ($value, $attributes) {
+                if (!empty($attributes['Name_Type_enc'])) {
+                    try {
+                        return \Illuminate\Support\Facades\Crypt::decryptString($attributes['Name_Type_enc']);
+                    } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
+                        return '*** DECRYPTION ERROR ***';
+                    }
+                }
+                return $value;
+            },
+            set: fn ($value) => [
+                'Name_Type_enc' => \Illuminate\Support\Facades\Crypt::encryptString($value),
+            ]
+        );
+    }
+
+    protected function ImageFile(): \Illuminate\Database\Eloquent\Casts\Attribute
+    {
+        return \Illuminate\Database\Eloquent\Casts\Attribute::make(
+            get: function ($value, $attributes) {
+                if (!empty($attributes['Image_File_enc'])) {
+                    try {
+                        return \Illuminate\Support\Facades\Crypt::decryptString($attributes['Image_File_enc']);
+                    } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
+                        return '*** DECRYPTION ERROR ***';
+                    }
+                }
+                return $value;
+            },
+            set: fn ($value) => [
+                'Image_File_enc' => \Illuminate\Support\Facades\Crypt::encryptString($value),
+            ]
+        );
+    }
 }

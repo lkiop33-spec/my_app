@@ -11,7 +11,7 @@
                 </div>
 
                 <!-- Primary Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 lg:flex flex-wrap lg:flex-nowrap">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
@@ -37,7 +37,7 @@
             </div>
 
             <!-- Settings Dropdown -->
-            <div class="hidden sm:flex sm:items-center sm:ms-6">
+            <div class="hidden lg:flex sm:items-center sm:ms-6">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-400 bg-gray-800 hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
@@ -71,7 +71,7 @@
             </div>
 
             <!-- Hamburger -->
-            <div class="-me-2 flex items-center sm:hidden">
+            <div class="-me-2 flex items-center lg:hidden">
                 <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-400 hover:bg-gray-900 focus:outline-none focus:bg-gray-900 focus:text-gray-400 transition duration-150 ease-in-out">
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                         <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -83,28 +83,29 @@
     </div>
 
     <!-- Secondary Navigation Menu (13 English DB Tables) -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-gray-700 bg-gray-900/50 hidden sm:block">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-gray-700 bg-gray-900/50 hidden lg:block overflow-hidden">
         <div class="flex h-12">
-            <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex w-full justify-between overflow-x-auto">
-                <x-nav-link :href="route('locations.index')" :active="request()->routeIs('locations.*')" class="text-xs text-gray-400 border-b-0" style="padding-top: 0;">Locations</x-nav-link>
-                <x-nav-link :href="route('parts.index')" :active="request()->routeIs('parts.*')" class="text-xs text-gray-400 border-b-0" style="padding-top: 0;">Parts</x-nav-link>
-                <x-nav-link :href="route('levels.index')" :active="request()->routeIs('levels.*')" class="text-xs text-gray-400 border-b-0" style="padding-top: 0;">Levels</x-nav-link>
-                <x-nav-link :href="route('work_lists.index')" :active="request()->routeIs('work_lists.*')" class="text-xs text-gray-400 border-b-0" style="padding-top: 0;">Work Lists</x-nav-link>
-                <x-nav-link :href="route('pcb_tables.index')" :active="request()->routeIs('pcb_tables.*')" class="text-xs text-gray-400 border-b-0" style="padding-top: 0;">PCB Tables</x-nav-link>
-                <x-nav-link :href="route('part_tables.index')" :active="request()->routeIs('part_tables.*')" class="text-xs text-gray-400 border-b-0" style="padding-top: 0;">Part Tables</x-nav-link>
-                <x-nav-link :href="route('process_tables.index')" :active="request()->routeIs('process_tables.*')" class="text-xs text-gray-400 border-b-0" style="padding-top: 0;">Process Tables</x-nav-link>
-                <x-nav-link :href="route('pcb_image_tables.index')" :active="request()->routeIs('pcb_image_tables.*')" class="text-xs text-gray-400 border-b-0" style="padding-top: 0;">PCB Images</x-nav-link>
-                <x-nav-link :href="route('doc_lists.index')" :active="request()->routeIs('doc_lists.*')" class="text-xs text-gray-400 border-b-0" style="padding-top: 0;">Doc Lists</x-nav-link>
-                <x-nav-link :href="route('types.index')" :active="request()->routeIs('types.*')" class="text-xs text-gray-400 border-b-0" style="padding-top: 0;">Types</x-nav-link>
-                <x-nav-link :href="route('languages.index')" :active="request()->routeIs('languages.*')" class="text-xs text-gray-400 border-b-0" style="padding-top: 0;">Languages</x-nav-link>
-                <x-nav-link :href="route('forbiddens.index')" :active="request()->routeIs('forbiddens.*')" class="text-xs text-gray-400 border-b-0" style="padding-top: 0;">Forbiddens</x-nav-link>
-                <x-nav-link :href="route('devices.index')" :active="request()->routeIs('devices.*')" class="text-xs text-gray-400 border-b-0" style="padding-top: 0;">Devices</x-nav-link>
+            <div class="hidden space-x-6 sm:-my-px sm:ms-10 lg:flex w-full justify-start overflow-x-auto whitespace-nowrap flex-nowrap custom-scrollbar">
+                <x-nav-link :href="route('working_lists.index')" :active="request()->routeIs('working_lists.*')" class="text-xs text-indigo-400 hover:text-indigo-300 border-b-0 shrink-0 font-semibold" style="padding-top: 0;">Working Lists</x-nav-link>
+                <x-nav-link :href="route('locations.index')" :active="request()->routeIs('locations.*')" class="text-xs text-gray-400 border-b-0 shrink-0" style="padding-top: 0;">Locations</x-nav-link>
+                <x-nav-link :href="route('parts.index')" :active="request()->routeIs('parts.*')" class="text-xs text-gray-400 border-b-0 shrink-0" style="padding-top: 0;">Parts</x-nav-link>
+                <x-nav-link :href="route('levels.index')" :active="request()->routeIs('levels.*')" class="text-xs text-gray-400 border-b-0 shrink-0" style="padding-top: 0;">Levels</x-nav-link>
+                <x-nav-link :href="route('work_lists.index')" :active="request()->routeIs('work_lists.*')" class="text-xs text-gray-400 border-b-0 shrink-0" style="padding-top: 0;">Work Lists</x-nav-link>
+                <x-nav-link :href="route('pcb_tables.index')" :active="request()->routeIs('pcb_tables.*')" class="text-xs text-gray-400 border-b-0 shrink-0" style="padding-top: 0;">PCB Tables</x-nav-link>
+                <x-nav-link :href="route('part_tables.index')" :active="request()->routeIs('part_tables.*')" class="text-xs text-gray-400 border-b-0 shrink-0" style="padding-top: 0;">Part Tables</x-nav-link>
+                <x-nav-link :href="route('process_tables.index')" :active="request()->routeIs('process_tables.*')" class="text-xs text-gray-400 border-b-0 shrink-0" style="padding-top: 0;">Process Tables</x-nav-link>
+                <x-nav-link :href="route('pcb_image_tables.index')" :active="request()->routeIs('pcb_image_tables.*')" class="text-xs text-gray-400 border-b-0 shrink-0" style="padding-top: 0;">PCB Images</x-nav-link>
+                <x-nav-link :href="route('doc_lists.index')" :active="request()->routeIs('doc_lists.*')" class="text-xs text-gray-400 border-b-0 shrink-0" style="padding-top: 0;">Doc Lists</x-nav-link>
+                <x-nav-link :href="route('types.index')" :active="request()->routeIs('types.*')" class="text-xs text-gray-400 border-b-0 shrink-0" style="padding-top: 0;">Types</x-nav-link>
+                <x-nav-link :href="route('languages.index')" :active="request()->routeIs('languages.*')" class="text-xs text-gray-400 border-b-0 shrink-0" style="padding-top: 0;">Languages</x-nav-link>
+                <x-nav-link :href="route('forbiddens.index')" :active="request()->routeIs('forbiddens.*')" class="text-xs text-gray-400 border-b-0 shrink-0" style="padding-top: 0;">Forbiddens</x-nav-link>
+                <x-nav-link :href="route('devices.index')" :active="request()->routeIs('devices.*')" class="text-xs text-gray-400 border-b-0 shrink-0" style="padding-top: 0;">Devices</x-nav-link>
             </div>
         </div>
     </div>
 
     <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
+    <div :class="{'block': open, 'hidden': ! open}" class="hidden lg:hidden">
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
@@ -115,6 +116,7 @@
             <x-responsive-nav-link :href="route('system_logs.index')" :active="request()->routeIs('system_logs.*')">
                 시스템 로그
             </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('working_lists.index')" :active="request()->routeIs('working_lists.*')" class="font-semibold text-indigo-400">Working Lists</x-responsive-nav-link>
             <x-responsive-nav-link :href="route('locations.index')" :active="request()->routeIs('locations.*')">Locations</x-responsive-nav-link>
             <x-responsive-nav-link :href="route('parts.index')" :active="request()->routeIs('parts.*')">Parts</x-responsive-nav-link>
             <x-responsive-nav-link :href="route('levels.index')" :active="request()->routeIs('levels.*')">Levels</x-responsive-nav-link>

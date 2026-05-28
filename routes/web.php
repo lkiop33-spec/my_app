@@ -50,6 +50,9 @@ Route::middleware('auth')->group(function () {
     
     // 시스템 로그
     Route::get('system_logs', [\App\Http\Controllers\SystemLogController::class, 'index'])->name('system_logs.index');
+
+    // Working Lists CRUD
+    Route::resource('working_lists', \App\Http\Controllers\WorkingListController::class);
 });
 
 require __DIR__.'/auth.php';

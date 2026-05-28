@@ -6,42 +6,48 @@
 
 ### 시스템 핵심 데이터
 #### 1. `work_lists` (현재작업정보 - 검출현황)
-| 컬럼명      | 타입         | 제약조건           | 설명                 |
-| :---------- | :----------- | :----------------- | :------------------- |
-| `idx`       | bigInteger   | PK, Auto Increment | 고유 ID              |
-| `wdate`     | datetime     | Not Null           | 등록일               |
-| `partList`  | varchar(200) | Not Null           | 파트 목록            |
-| `pcbIDX`    | integer      |                    | PCB ID (FK)          |
-| `memberIDX` | integer      |                    | 작업자(회원) ID (FK) |
+| 컬럼명         | 타입         | 제약조건           | 설명                        |
+| :------------- | :----------- | :----------------- | :-------------------------- |
+| `idx`          | bigInteger   | PK, Auto Increment | 고유 ID                     |
+| `wdate`        | datetime     | Not Null           | 등록일                      |
+| `partList`     | varchar(200) | Not Null           | 파트 목록                   |
+| `partList_enc` | text         | Nullable           | 파트 목록 (암호화 fallback) |
+| `pcbIDX`       | integer      |                    | PCB ID (FK)                 |
+| `memberIDX`    | integer      |                    | 작업자(회원) ID (FK)        |
 
 #### 2. `pcb_tables` (Pcb기판 정보)
-| 컬럼명       | 타입         | 제약조건           | 설명           |
-| :----------- | :----------- | :----------------- | :------------- |
-| `idx`        | bigInteger   | PK, Auto Increment | 고유 ID        |
-| `wdate`      | datetime     | Not Null           | 등록일         |
-| `PCB_Number` | varchar(20)  | Unique, Not Null   | 부품 번호      |
-| `Name_Type`  | varchar(100) | Not Null           | 이름과 유형    |
-| `Image_File` | varchar(100) | Not Null           | 이미지 파일    |
-| `Image_Side` | varchar(100) | Not Null           | 보드 윗면/앞면 |
+| 컬럼명           | 타입         | 제약조건           | 설명                          |
+| :--------------- | :----------- | :----------------- | :---------------------------- |
+| `idx`            | bigInteger   | PK, Auto Increment | 고유 ID                       |
+| `wdate`          | datetime     | Not Null           | 등록일                        |
+| `PCB_Number`     | varchar(20)  | Unique, Not Null   | 부품 번호                     |
+| `Name_Type`      | varchar(100) | Not Null           | 이름과 유형                   |
+| `Name_Type_enc`  | text         | Nullable           | 이름과 유형 (암호화 fallback) |
+| `Image_File`     | varchar(100) | Not Null           | 이미지 파일                   |
+| `Image_File_enc` | text         | Nullable           | 이미지 파일 (암호화 fallback) |
+| `Image_Side`     | varchar(100) | Not Null           | 보드 윗면/앞면                |
 
 #### 3. `part_tables` (부품정보)
-| 컬럼명           | 타입         | 제약조건           | 설명                       |
-| :--------------- | :----------- | :----------------- | :------------------------- |
-| `idx`            | bigInteger   | PK, Auto Increment | 고유 ID                    |
-| `wdate`          | datetime     | Not Null           | 등록일                     |
-| `Part_Number`    | varchar(20)  | Unique, Not Null   | 부품 번호                  |
-| `Name`           | varchar(10)  | Not Null           | 부품 명                    |
-| `PCB_Number`     | integer      | Not Null           | 보드 번호 (FK: pcb_tables) |
-| `Process_Class`  | varchar(100) | Nullable           | 수삽공정                   |
-| `Process_Name`   | varchar(100) | Nullable           | 수삽                       |
-| `Process_Detail` | varchar(100) | Unique             | 작업번호                   |
-| `Side`           | varchar(100) | Nullable           | 작업 면(윗면/앞면)         |
-| `Image_File`     | varchar(100) | Nullable           | 장착된 대표 이미지         |
-| `Quantity`       | varchar(100) | Nullable           | 수량                       |
-| `Location_1`     | varchar(100) | Nullable           | 장착 위치 1                |
-| `Location_2`     | varchar(100) | Nullable           | 장착 위치 2                |
-| `Location_3`     | varchar(100) | Nullable           | 장착 위치 3                |
-| `Location_4`     | varchar(100) | Nullable           | 장착 위치 4                |
+| 컬럼명               | 타입         | 제약조건           | 설명                                 |
+| :------------------- | :----------- | :----------------- | :----------------------------------- |
+| `idx`                | bigInteger   | PK, Auto Increment | 고유 ID                              |
+| `wdate`              | datetime     | Not Null           | 등록일                               |
+| `Part_Number`        | varchar(20)  | Unique, Not Null   | 부품 번호                            |
+| `Name`               | varchar(10)  | Not Null           | 부품 명                              |
+| `Name_enc`           | text         | Nullable           | 부품 명 (암호화 fallback)            |
+| `PCB_Number`         | integer      | Not Null           | 보드 번호 (FK: pcb_tables)           |
+| `Process_Class`      | varchar(100) | Nullable           | 수삽공정                             |
+| `Process_Name`       | varchar(100) | Nullable           | 수삽                                 |
+| `Process_Detail`     | varchar(100) | Unique             | 작업번호                             |
+| `Process_Detail_enc` | text         | Nullable           | 작업번호 (암호화 fallback)           |
+| `Side`               | varchar(100) | Nullable           | 작업 면(윗면/앞면)                   |
+| `Image_File`         | varchar(100) | Nullable           | 장착된 대표 이미지                   |
+| `Image_File_enc`     | text         | Nullable           | 장착된 대표 이미지 (암호화 fallback) |
+| `Quantity`           | varchar(100) | Nullable           | 수량                                 |
+| `Location_1`         | varchar(100) | Nullable           | 장착 위치 1                          |
+| `Location_2`         | varchar(100) | Nullable           | 장착 위치 2                          |
+| `Location_3`         | varchar(100) | Nullable           | 장착 위치 3                          |
+| `Location_4`         | varchar(100) | Nullable           | 장착 위치 4                          |
 
 #### 4. `process_tables` (공정정보)
 | 컬럼명     | 타입         | 제약조건           | 설명              |
@@ -54,14 +60,17 @@
 | `Sequence` | varchar(100) | Nullable           | 순서              |
 
 #### 5. `pcb_image_tables` (PCB 이미지 정보)
-| 컬럼명       | 타입         | 제약조건           | 설명                       |
-| :----------- | :----------- | :----------------- | :------------------------- |
-| `idx`        | bigInteger   | PK, Auto Increment | 고유 ID                    |
-| `wdate`      | datetime     | Not Null           | 등록일                     |
-| `PCB_Number` | integer      | Not Null           | 보드 번호 (FK: pcb_tables) |
-| `Image`      | varchar(100) | Not Null           | 이미지명                   |
-| `BoundBox`   | varchar(100) | Nullable           | Bounding Box               |
-| `Other`      | varchar(100) | Nullable           | 기타                       |
+| 컬럼명         | 타입         | 제약조건           | 설명                           |
+| :------------- | :----------- | :----------------- | :----------------------------- |
+| `idx`          | bigInteger   | PK, Auto Increment | 고유 ID                        |
+| `wdate`        | datetime     | Not Null           | 등록일                         |
+| `PCB_Number`   | integer      | Not Null           | 보드 번호 (FK: pcb_tables)     |
+| `Image`        | varchar(100) | Not Null           | 이미지명                       |
+| `Image_enc`    | text         | Nullable           | 이미지명 (암호화 fallback)     |
+| `BoundBox`     | varchar(100) | Nullable           | Bounding Box                   |
+| `BoundBox_enc` | text         | Nullable           | Bounding Box (암호화 fallback) |
+| `Other`        | varchar(100) | Nullable           | 기타                           |
+| `Other_enc`    | text         | Nullable           | 기타 (암호화 fallback)         |
 
 ---
 
