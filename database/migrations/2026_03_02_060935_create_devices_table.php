@@ -16,7 +16,7 @@ return new class extends Migration
             $table->timestamp('wdate')->useCurrent();
             $table->string('name', 20)->unique();
             $table->string('password', 20)->unique();
-            $table->unsignedBigInteger('location');
+            $table->string('location', 100);
             $table->string('version', 20);
             $table->timestamps();
         });
