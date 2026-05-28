@@ -61,7 +61,7 @@
                         </thead>
                         <tbody class="divide-y divide-gray-700 bg-gray-800/20">
                             @forelse($items as $item)
-                                <tr class="hover:bg-gray-700/30 transition-colors duration-150">
+                                <tr class="hover:bg-gray-700/30 transition-colors duration-150" data-id="{{ $item->id }}">
                                     <td class="px-6 py-4 whitespace-nowrap text-xs text-gray-400 font-mono">
                                         #{{ $item->id }}
                                     </td>
@@ -120,4 +120,35 @@
             </div>
         </div>
     </div>
+
+    <!-- 실시간 지능형 자동 새로고침 폴링 스크립트 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 현재 화면의 맨 위에 있는 가장 최신 행(row)의 ID 확보
+            const firstRow = document.querySelector('tbody tr[data-id]');
+            if (!firstRow) return;
+            
+            const currentLatestId = parseInt(firstRow.getAttribute('data-id'), 10);
+
+            // 3초 주기로 최신 API를 비동기 호출하여 대조
+            setInterval(() => {
+                fetch('/api/working_lists/latest')
+                    .then(response => response.text())
+                    .then(text => {
+                        if (!text) return;
+                        
+                        // "id|no|worker_name|text|datetime" 응답 텍스트 해체
+                        const parts = text.split('|');
+                        const serverLatestId = parseInt(parts[0], 10);
+
+                        // 서버의 최종 id가 화면에 렌더링된 최신 id보다 크면 (즉 새 데이터 등록 감지 시)
+                        if (serverLatestId > currentLatestId) {
+                            // 지체 없이 현재 화면을 매끄럽게 새로고침하여 반영
+                            location.reload();
+                        }
+                    })
+                    .catch(err => console.error('실시간 새로고침 에러:', err));
+            }, 3000); // 3초 주기 폴링
+        });
+    </script>
 </x-app-layout>
