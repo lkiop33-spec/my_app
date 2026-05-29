@@ -71,7 +71,7 @@
                                     <td class="px-6 py-4 whitespace-nowrap text-xs text-gray-200 font-semibold">
                                         {{ $item->worker_name ?? '-' }}
                                     </td>
-                                    <td class="px-6 py-4 text-xs text-gray-200 max-w-md truncate">
+                                    <td class="px-6 py-4 text-xs text-gray-200 break-all">
                                         {{ $item->text ?? '-' }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-xs text-gray-400 font-mono">
