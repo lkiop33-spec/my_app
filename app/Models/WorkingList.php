@@ -21,6 +21,30 @@ class WorkingList extends Model
     ];
 
     /**
+     * datetime 속성 접근 시 Asia/Seoul 타임존 변환 반환
+     */
+    public function getDatetimeAttribute($value)
+    {
+        return $value ? \Carbon\Carbon::parse($value)->timezone('Asia/Seoul') : null;
+    }
+
+    /**
+     * created_at 속성 접근 시 Asia/Seoul 타임존 변환 반환
+     */
+    public function getCreatedAtAttribute($value)
+    {
+        return $value ? \Carbon\Carbon::parse($value)->timezone('Asia/Seoul') : null;
+    }
+
+    /**
+     * updated_at 속성 접근 시 Asia/Seoul 타임존 변환 반환
+     */
+    public function getUpdatedAtAttribute($value)
+    {
+        return $value ? \Carbon\Carbon::parse($value)->timezone('Asia/Seoul') : null;
+    }
+
+    /**
      * The "booted" method of the model.
      */
     protected static function booted()
