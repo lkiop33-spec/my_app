@@ -41,10 +41,13 @@
 4. 네임서버 및 DNS(A 레코드) 설정이 가상서버 IP(`cotaxdt.cafe24.com`의 IP)를 가리키도록 설정합니다.
 
 ### [2단계] 서버 SSH 접속 및 프로젝트 생성
+*   **실서버 실제 프로젝트 경로**: `/usr/share/nginx/www/cotax` (Nginx 웹루트 경로)
+
+### [2단계] 서버 SSH 접속 및 프로젝트 경로 이동
 1. 터미널 또는 SSH 클라이언트(예: PuTTY, Termius 등)를 사용해 서버에 `root` 계정으로 접속합니다.
-2. 기존 프로젝트가 모여 있는 디렉토리(예: `/var/www/` 또는 `/home/cotaxdt/html/`)로 이동합니다.
+2. 실서버 프로젝트 디렉토리로 이동합니다.
    ```bash
-   cd /var/www
+   cd /usr/share/nginx/www/cotax
    ```
 3. 컴포저를 사용하여 새로운 라라벨 12 프로젝트를 생성합니다.
    ```bash
