@@ -26,12 +26,12 @@ class WorkingList extends Model
     protected static function booted()
     {
         static::created(function ($workingList) {
-            $limit = 1000;
-            $count = self::count();
-            if ($count > $limit) {
-                // 최신 1000개 데이터의 ID만 유지하고, 나머지는 삭제
-                $keepIds = self::latest('id')->take($limit)->pluck('id');
-                self::whereNotIn('id', $keepIds)->delete();
+            $limit = 300; // 데이터 보관 한도 축소 (1000 -> 300)
+            // 최신 N개 경계에 있는 레코드를 조회
+            $boundary = self::latest('id')->skip($limit - 1)->first();
+            if ($boundary) {
+                // 경계 레코드 ID보다 오래된 모든 데이터를 즉시 일괄 삭제 (성능 개선)
+                self::where('id', '<', $boundary->id)->delete();
             }
         });
     }
