@@ -133,3 +133,49 @@ sudo chown -R www-data:www-data storage bootstrap/cache
 sudo chmod -R 775 storage bootstrap/cache
 ```
 *(※ 만약 웹서버 실행 사용자가 `www-data`가 아닌 다른 사용자(예: `nginx`, `apache` 등)일 경우 해당 명칭에 맞추어 `chown` 명령을 조율해야 합니다.)*
+
+---
+
+## 4. 기존 프로젝트 (cotax.kr) 업데이트 및 배포 방법
+
+로컬 개발 환경에서 작업한 변경 사항을 실서버(`cotaxdt.cafe24.com`)에 반영하고 배포하는 절차입니다.
+
+### [1단계] 로컬 코드 변경 사항 커밋 및 푸시
+로컬 터미널에서 작업 완료 후 GitHub 원격 저장소로 코드를 푸시합니다.
+```bash
+# 1. 변경된 파일 스테이징 및 커밋
+git add .
+git commit -m "배포할 변경 내용 메시지 작성"
+
+# 2. GitHub 저장소(main 브랜치)로 전송
+git push origin main
+```
+
+### [2단계] 서버 SSH 접속 및 코드 반영 (Git Pull)
+서버 터미널에 접속하여 원격 저장소의 최신 코드를 당겨받습니다.
+```bash
+# 1. 서버 SSH 접속 (패스워드 입력 인증)
+ssh root@cotaxdt.cafe24.com
+
+# 2. 실서버 프로젝트 웹 루트 경로로 이동 (Nginx 기반)
+cd /usr/share/nginx/www/cotax
+
+# 3. 최신 코드 가져오기
+git pull
+```
+
+### [3단계] 서버 캐시 초기화 및 빌드 (필수)
+새로운 코드와 변경 설정이 즉시 실서버에 반영될 수 있도록 라라벨 캐시를 정리합니다.
+```bash
+# 1. 라라벨 설정/뷰/라우트 캐시 비우기
+php artisan config:clear
+php artisan view:clear
+php artisan route:clear
+php artisan cache:clear
+```
+
+### [추가 사항] 데이터베이스 마이그레이션이 포함된 경우
+만약 데이터베이스 테이블 변경(마이그레이션)이 포함되어 있다면 아래 명령어를 추가로 실행합니다.
+```bash
+php artisan migrate --force
+```
