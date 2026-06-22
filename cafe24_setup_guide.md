@@ -138,7 +138,14 @@ sudo chmod -R 775 storage bootstrap/cache
 
 ## 4. 기존 프로젝트 (cotax.kr) 업데이트 및 배포 방법
 
-로컬 개발 환경에서 작업한 변경 사항을 실서버(`cotaxdt.cafe24.com`)에 반영하고 배포하는 절차입니다.
+로컬 개발 환경에서 작업한 변경 사항을 실서버에 반영하고 배포하는 절차입니다.
+
+### [실서버 접속 및 경로 기본 정보]
+*   **SSH 접속 주소**: `cotaxdt.cafe24.com` (또는 `cotax.kr`)
+*   **SSH 접속 계정**: `root`
+*   **SSH 접속 명령어**: `ssh root@cotaxdt.cafe24.com`
+*   **SSH 접속 인증**: 패스워드 직접 입력
+*   **실서버 실제 프로젝트 경로**: `/usr/share/nginx/www/cotax`
 
 ### [1단계] 로컬 코드 변경 사항 커밋 및 푸시
 로컬 터미널에서 작업 완료 후 GitHub 원격 저장소로 코드를 푸시합니다.
