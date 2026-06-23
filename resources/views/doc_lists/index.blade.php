@@ -1,4 +1,3 @@
-
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-white leading-tight">
@@ -13,7 +12,7 @@
                     <div class="flex justify-between items-center mb-6">
                         <div>
                             <h3 class="text-lg font-medium text-white">DocList List</h3>
-                        <p class="mt-1 text-sm text-gray-400">외국인 노동자 및 저숙련 작업자를 위한 각종 다국어 장비 매뉴얼, 공정 조립 표준서 등을 모아놓은 문서고입니다.</p>
+                            <p class="mt-1 text-sm text-gray-400">외국인 노동자 및 저숙련 작업자를 위한 각종 다국어 장비 매뉴얼, 공정 조립 표준서 등을 모아놓은 문서고입니다.</p>
                         </div>
                         <a href="{{ route('doc_lists.create') }}" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 rounded-md text-white font-medium transition">
                             Create New
@@ -40,7 +39,24 @@
                                         <td class="px-6 py-4 font-medium text-white">{{ $item->idx ?? $item->id }}</td>
                                         <td class="px-6 py-4">{{ $item->typeRelationship?->mtype ?? 'N/A' }}</td>
                                         <td class="px-6 py-4">{{ $item->name }}</td>
-                                        <td class="px-6 py-4">{{ $item->filename }}</td>
+                                        <td class="px-6 py-4">
+                                            @if($item->filename && $item->path)
+                                                @php
+                                                    $extension = strtolower(pathinfo($item->filename, PATHINFO_EXTENSION));
+                                                    $isImage = in_array($extension, ['png', 'jpg', 'jpeg', 'gif', 'webp']);
+                                                @endphp
+                                                <div class="flex items-center space-x-2">
+                                                    @if($isImage)
+                                                        <img src="{{ asset($item->path . '/' . $item->filename) }}" alt="Doc Thumb" class="w-8 h-8 object-cover rounded border border-gray-700 bg-gray-900" />
+                                                    @endif
+                                                    <a href="{{ asset($item->path . '/' . $item->filename) }}" target="_blank" class="text-blue-400 hover:underline font-medium text-xs truncate max-w-[120px]" title="{{ $item->filename }}">
+                                                        {{ $item->filename }}
+                                                    </a>
+                                                </div>
+                                            @else
+                                                N/A
+                                            @endif
+                                        </td>
                                         <td class="px-6 py-4">{{ $item->path }}</td>
                                         <td class="px-6 py-4">{{ $item->languageRelationship?->mlanguage ?? 'N/A' }}</td>
                                         <td class="px-6 py-4">{{ $item->reference }}</td>

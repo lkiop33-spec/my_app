@@ -1,4 +1,3 @@
-
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-white leading-tight">
@@ -36,7 +35,24 @@
                             </div>
                             <div class="bg-gray-900/50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt class="text-sm font-medium text-gray-400">filename</dt>
-                                <dd class="mt-1 text-sm text-white sm:mt-0 sm:col-span-2">{{ $docList->filename }}</dd>
+                                <dd class="mt-1 text-sm text-white sm:mt-0 sm:col-span-2">
+                                    @if($docList->filename && $docList->path)
+                                        @php
+                                            $extension = strtolower(pathinfo($docList->filename, PATHINFO_EXTENSION));
+                                            $isImage = in_array($extension, ['png', 'jpg', 'jpeg', 'gif', 'webp']);
+                                        @endphp
+                                        @if($isImage)
+                                            <div class="mb-2">
+                                                <img src="{{ asset($docList->path . '/' . $docList->filename) }}" alt="Document Image" class="max-w-md rounded-lg shadow border border-gray-700 bg-gray-900 p-1" />
+                                            </div>
+                                        @endif
+                                        <a href="{{ asset($docList->path . '/' . $docList->filename) }}" target="_blank" class="text-blue-400 hover:underline font-medium">
+                                            {{ $docList->filename }}
+                                        </a>
+                                    @else
+                                        N/A
+                                    @endif
+                                </dd>
                             </div>
                             <div class="bg-gray-800 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt class="text-sm font-medium text-gray-400">path</dt>

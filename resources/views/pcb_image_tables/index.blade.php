@@ -1,4 +1,3 @@
-
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-white leading-tight">
@@ -13,7 +12,7 @@
                     <div class="flex justify-between items-center mb-6">
                         <div>
                             <h3 class="text-lg font-medium text-white">PcbImageTable List</h3>
-                        <p class="mt-1 text-sm text-gray-400">불량 판독이나 AI 모델 비전 학습용으로 업로드된 기판 외관 이미지 및 검수 객체 좌표 정보입니다.</p>
+                            <p class="mt-1 text-sm text-gray-400">불량 판독이나 AI 모델 비전 학습용으로 업로드된 기판 외관 이미지 및 검수 객체 좌표 정보입니다.</p>
                         </div>
                         <a href="{{ route('pcb_image_tables.create') }}" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 rounded-md text-white font-medium transition">
                             Create New
@@ -37,7 +36,16 @@
                                     <tr class="border-b border-gray-700 hover:bg-gray-700/50">
                                         <td class="px-6 py-4 font-medium text-white">{{ $item->idx ?? $item->id }}</td>
                                         <td class="px-6 py-4">{{ $item->pcbRelationship?->PCB_Number ?? 'N/A' }}</td>
-                                        <td class="px-6 py-4">{{ $item->Image }}</td>
+                                        <td class="px-6 py-4">
+                                            @if($item->Image)
+                                                <div class="flex items-center space-x-3">
+                                                    <img src="{{ asset('uploads/' . $item->Image) }}" alt="PCB Thumbnail" class="w-12 h-12 object-cover rounded border border-gray-700 bg-gray-900" />
+                                                    <span class="text-xs text-gray-400">{{ $item->Image }}</span>
+                                                </div>
+                                            @else
+                                                N/A
+                                            @endif
+                                        </td>
                                         <td class="px-6 py-4">{{ $item->BoundBox }}</td>
                                         <td class="px-6 py-4">{{ $item->Other }}</td>
                                         <td class="px-6 py-4 text-right space-x-2">

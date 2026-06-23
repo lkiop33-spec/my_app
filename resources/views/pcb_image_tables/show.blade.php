@@ -1,4 +1,3 @@
-
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-white leading-tight">
@@ -32,7 +31,16 @@
                             </div>
                             <div class="bg-gray-800 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt class="text-sm font-medium text-gray-400">Image</dt>
-                                <dd class="mt-1 text-sm text-white sm:mt-0 sm:col-span-2">{{ $pcbImageTable->Image }}</dd>
+                                <dd class="mt-1 text-sm text-white sm:mt-0 sm:col-span-2">
+                                    @if($pcbImageTable->Image)
+                                        <div class="mb-2">
+                                            <img src="{{ asset('uploads/' . $pcbImageTable->Image) }}" alt="PCB Image" class="max-w-md rounded-lg shadow border border-gray-700 bg-gray-900 p-1" />
+                                        </div>
+                                        <span class="text-xs text-gray-400">{{ $pcbImageTable->Image }}</span>
+                                    @else
+                                        N/A
+                                    @endif
+                                </dd>
                             </div>
                             <div class="bg-gray-900/50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt class="text-sm font-medium text-gray-400">BoundBox</dt>
