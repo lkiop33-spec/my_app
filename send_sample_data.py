@@ -112,7 +112,7 @@ def send_data(worker_name, log_line):
 def send_single_simulated_data():
     selected_worker = combo_worker.get()
     if selected_worker == "자동 선택 (랜덤)":
-        workers = ["김민준", "박지민", "Nguyen Van A", "John Doe", "Somsak", "Fatima"]
+        workers = ["김태균"]
         worker_name = random.choice(workers)
     else:
         worker_name = selected_worker
@@ -184,7 +184,7 @@ lbl_counter.grid(row=0, column=2, sticky=tk.E, padx=(160, 0))
 lbl_worker_select = tk.Label(frame_dashboard, text="작업자 선택:", font=("바탕체", 9), fg="#4B5563", bg="#F3F4F6")
 lbl_worker_select.grid(row=1, column=0, sticky=tk.W, pady=(8, 0))
 
-combo_worker = ttk.Combobox(frame_dashboard, values=["자동 선택 (랜덤)", "김민준", "박지민", "Nguyen Van A", "John Doe", "Somsak", "Fatima"], font=("바탕체", 9), state="readonly", width=15)
+combo_worker = ttk.Combobox(frame_dashboard, values=["자동 선택 (랜덤)", "김태균"], font=("바탕체", 9), state="readonly", width=15)
 combo_worker.current(0)
 combo_worker.grid(row=1, column=1, columnspan=2, sticky=tk.W, padx=(5, 0), pady=(8, 0))
 
