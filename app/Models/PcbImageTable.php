@@ -81,4 +81,13 @@ class PcbImageTable extends Model
             ]
         );
     }
+
+    /**
+     * Get the PCB board that the image belongs to.
+     */
+    public function pcbRelationship()
+    {
+        return $this->belongsTo(PcbTable::class, 'PCB_Number', 'idx');
+    }
 }
+

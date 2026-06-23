@@ -17,7 +17,17 @@
                         
                         <div>
                             <x-input-label for="PCB_Number" value="PCB Number" class="text-gray-300" />
-                            <x-text-input id="PCB_Number" name="PCB_Number" type="text" class="mt-1 block w-full bg-gray-900 border-gray-700 text-white" value="{{ old('PCB_Number', $pcbImageTable->PCB_Number) }}" />
+                            <select id="PCB_Number" name="PCB_Number" class="mt-1 block w-full bg-gray-900 border-gray-700 text-white rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                <option value="">{{ __('Select PCB') }}</option>
+                                @foreach($pcbs as $pcb)
+                                    <option value="{{ $pcb->idx }}" {{ old('PCB_Number', $pcbImageTable->PCB_Number) == $pcb->idx ? 'selected' : '' }}>
+                                        {{ $pcb->PCB_Number }} ({{ $pcb->Name_Type }})
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('PCB_Number')
+                                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
                         
                         <div>

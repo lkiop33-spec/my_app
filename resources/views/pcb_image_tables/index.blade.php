@@ -36,7 +36,7 @@
                                 @foreach($pcb_image_tables as $item)
                                     <tr class="border-b border-gray-700 hover:bg-gray-700/50">
                                         <td class="px-6 py-4 font-medium text-white">{{ $item->idx ?? $item->id }}</td>
-                                        <td class="px-6 py-4">{{ $item->PCB_Number }}</td>
+                                        <td class="px-6 py-4">{{ $item->pcbRelationship?->PCB_Number ?? 'N/A' }}</td>
                                         <td class="px-6 py-4">{{ $item->Image }}</td>
                                         <td class="px-6 py-4">{{ $item->BoundBox }}</td>
                                         <td class="px-6 py-4">{{ $item->Other }}</td>

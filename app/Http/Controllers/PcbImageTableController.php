@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PcbImageTable;
+use App\Models\PcbTable;
 use Illuminate\Http\Request;
 
 class PcbImageTableController extends Controller
@@ -21,7 +22,8 @@ class PcbImageTableController extends Controller
      */
     public function create()
     {
-        return view('pcb_image_tables.create');
+        $pcbs = PcbTable::all();
+        return view('pcb_image_tables.create', compact('pcbs'));
     }
 
     /**
@@ -29,6 +31,13 @@ class PcbImageTableController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'PCB_Number' => 'required|exists:pcb_tables,idx',
+            'Image' => 'required|string|max:100',
+            'BoundBox' => 'nullable|string|max:100',
+            'Other' => 'nullable|string|max:100',
+        ]);
+
         PcbImageTable::create($request->all());
         return redirect()->route('pcb_image_tables.index')->with('success', 'Created successfully.');
     }
@@ -48,7 +57,8 @@ class PcbImageTableController extends Controller
     public function edit($id)
     {
         $pcbImageTable = PcbImageTable::findOrFail($id);
-        return view('pcb_image_tables.edit', compact('pcbImageTable'));
+        $pcbs = PcbTable::all();
+        return view('pcb_image_tables.edit', compact('pcbImageTable', 'pcbs'));
     }
 
     /**
@@ -57,6 +67,14 @@ class PcbImageTableController extends Controller
     public function update(Request $request, $id)
     {
         $pcbImageTable = PcbImageTable::findOrFail($id);
+
+        $request->validate([
+            'PCB_Number' => 'required|exists:pcb_tables,idx',
+            'Image' => 'required|string|max:100',
+            'BoundBox' => 'nullable|string|max:100',
+            'Other' => 'nullable|string|max:100',
+        ]);
+
         $pcbImageTable->update($request->all());
         return redirect()->route('pcb_image_tables.index')->with('success', 'Updated successfully.');
     }
