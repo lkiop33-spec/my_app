@@ -22,6 +22,6 @@ class UserApiController extends Controller
             ];
         });
 
-        return response()->json($users);
+        return response()->json($users, 200, [], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
     }
 }
