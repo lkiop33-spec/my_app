@@ -29,6 +29,11 @@ class LevelController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required|string|max:10|unique:levels,name',
+            'level' => 'required|integer',
+        ]);
+
         Level::create($request->all());
         return redirect()->route('levels.index')->with('success', 'Created successfully.');
     }
@@ -57,6 +62,12 @@ class LevelController extends Controller
     public function update(Request $request, $id)
     {
         $level = Level::findOrFail($id);
+
+        $request->validate([
+            'name' => 'required|string|max:10|unique:levels,name,' . $level->idx . ',idx',
+            'level' => 'required|integer',
+        ]);
+
         $level->update($request->all());
         return redirect()->route('levels.index')->with('success', 'Updated successfully.');
     }

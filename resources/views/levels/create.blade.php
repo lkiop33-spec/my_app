@@ -18,11 +18,17 @@
                         <div>
                             <x-input-label for="name" value="name" class="text-gray-300" />
                             <x-text-input id="name" name="name" type="text" class="mt-1 block w-full bg-gray-900 border-gray-700 text-white" value="{{ old('name', '') }}" />
+                            @error('name')
+                                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
                         
                         <div>
                             <x-input-label for="level" value="level" class="text-gray-300" />
-                            <x-text-input id="level" name="level" type="text" class="mt-1 block w-full bg-gray-900 border-gray-700 text-white" value="{{ old('level', '') }}" />
+                            <x-text-input id="level" name="level" type="number" class="mt-1 block w-full bg-gray-900 border-gray-700 text-white" value="{{ old('level', '') }}" />
+                            @error('level')
+                                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
                         
                         <div class="flex items-center gap-4 pt-4">
