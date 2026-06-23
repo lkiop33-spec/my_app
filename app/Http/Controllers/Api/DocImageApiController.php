@@ -5,11 +5,12 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\DocList;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\File;
 
 class DocImageApiController extends Controller
 {
     /**
-     * Display a listing of document images (filtered by image extensions).
+     * Display a listing of document images (filtered by image extensions and physical existence).
      */
     public function index(): JsonResponse
     {
@@ -21,7 +22,10 @@ class DocImageApiController extends Controller
                     return false;
                 }
                 $ext = strtolower(pathinfo($item->filename, PATHINFO_EXTENSION));
-                return in_array($ext, $allowedExtensions);
+                if (!in_array($ext, $allowedExtensions)) {
+                    return false;
+                }
+                return File::exists(public_path('uploads/' . $item->filename));
             })
             ->map(function ($item) {
                 return [

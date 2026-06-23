@@ -5,16 +5,22 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\PcbImageTable;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\File;
 
 class PcbImageApiController extends Controller
 {
     /**
-     * Display a listing of PCB images which are not empty.
+     * Display a listing of PCB images which are not empty and exist physically.
      */
     public function index(): JsonResponse
     {
         $images = PcbImageTable::with('pcbRelationship')->get()
-            ->filter(fn($item) => !empty($item->Image))
+            ->filter(function($item) {
+                if (empty($item->Image)) {
+                    return false;
+                }
+                return File::exists(public_path('uploads/' . $item->Image));
+            })
             ->map(function($item) {
                 return [
                     'id' => $item->idx ?? $item->id,
