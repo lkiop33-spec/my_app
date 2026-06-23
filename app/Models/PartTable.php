@@ -65,7 +65,7 @@ class PartTable extends Model
                 return $value;
             },
             set: fn ($value) => [
-                'Process_Detail' => 'ENCRYPTED',
+                'Process_Detail' => 'ENC_' . uniqid(),
                 'Process_Detail_enc' => \Illuminate\Support\Facades\Crypt::encryptString($value),
             ]
         );
