@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PartTable;
+use App\Models\PcbTable;
 use Illuminate\Http\Request;
 
 class PartTableController extends Controller
@@ -21,7 +22,8 @@ class PartTableController extends Controller
      */
     public function create()
     {
-        return view('part_tables.create');
+        $pcbs = PcbTable::all();
+        return view('part_tables.create', compact('pcbs'));
     }
 
     /**
@@ -29,6 +31,22 @@ class PartTableController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'Part_Number' => 'required|string|max:20|unique:part_tables,Part_Number',
+            'Name' => 'required|string|max:100',
+            'PCB_Number' => 'required|exists:pcb_tables,idx',
+            'Process_Class' => 'nullable|string|max:100',
+            'Process_Name' => 'nullable|string|max:100',
+            'Process_Detail' => 'nullable|string|max:100|unique:part_tables,Process_Detail',
+            'Side' => 'nullable|string|max:100',
+            'Image_File' => 'nullable|string|max:100',
+            'Quantity' => 'nullable|string|max:100',
+            'Location_1' => 'nullable|string|max:100',
+            'Location_2' => 'nullable|string|max:100',
+            'Location_3' => 'nullable|string|max:100',
+            'Location_4' => 'nullable|string|max:100',
+        ]);
+
         PartTable::create($request->all());
         return redirect()->route('part_tables.index')->with('success', 'Created successfully.');
     }
@@ -48,7 +66,8 @@ class PartTableController extends Controller
     public function edit($id)
     {
         $partTable = PartTable::findOrFail($id);
-        return view('part_tables.edit', compact('partTable'));
+        $pcbs = PcbTable::all();
+        return view('part_tables.edit', compact('partTable', 'pcbs'));
     }
 
     /**
@@ -57,6 +76,23 @@ class PartTableController extends Controller
     public function update(Request $request, $id)
     {
         $partTable = PartTable::findOrFail($id);
+
+        $request->validate([
+            'Part_Number' => 'required|string|max:20|unique:part_tables,Part_Number,' . $partTable->idx . ',idx',
+            'Name' => 'required|string|max:100',
+            'PCB_Number' => 'required|exists:pcb_tables,idx',
+            'Process_Class' => 'nullable|string|max:100',
+            'Process_Name' => 'nullable|string|max:100',
+            'Process_Detail' => 'nullable|string|max:100|unique:part_tables,Process_Detail,' . $partTable->idx . ',idx',
+            'Side' => 'nullable|string|max:100',
+            'Image_File' => 'nullable|string|max:100',
+            'Quantity' => 'nullable|string|max:100',
+            'Location_1' => 'nullable|string|max:100',
+            'Location_2' => 'nullable|string|max:100',
+            'Location_3' => 'nullable|string|max:100',
+            'Location_4' => 'nullable|string|max:100',
+        ]);
+
         $partTable->update($request->all());
         return redirect()->route('part_tables.index')->with('success', 'Updated successfully.');
     }

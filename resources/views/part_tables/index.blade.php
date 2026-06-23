@@ -47,7 +47,7 @@
                                         <td class="px-6 py-4 font-medium text-white">{{ $item->idx ?? $item->id }}</td>
                                         <td class="px-6 py-4">{{ $item->Part_Number }}</td>
                                         <td class="px-6 py-4">{{ $item->Name }}</td>
-                                        <td class="px-6 py-4">{{ $item->PCB_Number }}</td>
+                                        <td class="px-6 py-4">{{ $item->pcbRelationship?->PCB_Number ?? 'N/A' }}</td>
                                         <td class="px-6 py-4">{{ $item->Process_Class }}</td>
                                         <td class="px-6 py-4">{{ $item->Process_Name }}</td>
                                         <td class="px-6 py-4">{{ $item->Process_Detail }}</td>

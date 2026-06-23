@@ -90,4 +90,13 @@ class PartTable extends Model
             ]
         );
     }
+
+    /**
+     * Get the PCB that the part belongs to.
+     */
+    public function pcbRelationship()
+    {
+        return $this->belongsTo(PcbTable::class, 'PCB_Number', 'idx');
+    }
 }
+
