@@ -17,7 +17,17 @@
                         
                         <div>
                             <x-input-label for="type" value="type" class="text-gray-300" />
-                            <x-text-input id="type" name="type" type="text" class="mt-1 block w-full bg-gray-900 border-gray-700 text-white" value="{{ old('type', '') }}" />
+                            <select id="type" name="type" class="mt-1 block w-full bg-gray-900 border-gray-700 text-white rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                <option value="">{{ __('Select Type') }}</option>
+                                @foreach($types as $t)
+                                    <option value="{{ $t->idx }}" {{ old('type') == $t->idx ? 'selected' : '' }}>
+                                        {{ $t->mtype }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('type')
+                                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
                         
                         <div>
@@ -37,7 +47,17 @@
                         
                         <div>
                             <x-input-label for="language" value="language" class="text-gray-300" />
-                            <x-text-input id="language" name="language" type="text" class="mt-1 block w-full bg-gray-900 border-gray-700 text-white" value="{{ old('language', '') }}" />
+                            <select id="language" name="language" class="mt-1 block w-full bg-gray-900 border-gray-700 text-white rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                <option value="">{{ __('Select Language') }}</option>
+                                @foreach($languages as $lang)
+                                    <option value="{{ $lang->idx }}" {{ old('language') == $lang->idx ? 'selected' : '' }}>
+                                        {{ $lang->mlanguage }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('language')
+                                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
                         
                         <div>

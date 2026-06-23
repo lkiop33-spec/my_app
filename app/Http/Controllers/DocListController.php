@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\DocList;
+use App\Models\Type;
+use App\Models\Language;
 use Illuminate\Http\Request;
 
 class DocListController extends Controller
@@ -21,7 +23,9 @@ class DocListController extends Controller
      */
     public function create()
     {
-        return view('doc_lists.create');
+        $types = Type::all();
+        $languages = Language::all();
+        return view('doc_lists.create', compact('types', 'languages'));
     }
 
     /**
@@ -29,6 +33,15 @@ class DocListController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'type' => 'required|exists:types,idx',
+            'name' => 'required|string|max:10|unique:doc_lists,name',
+            'filename' => 'required|string|max:20',
+            'path' => 'required|string|max:20',
+            'language' => 'nullable|exists:languages,idx',
+            'reference' => 'nullable|string|max:20',
+        ]);
+
         DocList::create($request->all());
         return redirect()->route('doc_lists.index')->with('success', 'Created successfully.');
     }
@@ -48,7 +61,9 @@ class DocListController extends Controller
     public function edit($id)
     {
         $docList = DocList::findOrFail($id);
-        return view('doc_lists.edit', compact('docList'));
+        $types = Type::all();
+        $languages = Language::all();
+        return view('doc_lists.edit', compact('docList', 'types', 'languages'));
     }
 
     /**
@@ -57,6 +72,16 @@ class DocListController extends Controller
     public function update(Request $request, $id)
     {
         $docList = DocList::findOrFail($id);
+
+        $request->validate([
+            'type' => 'required|exists:types,idx',
+            'name' => 'required|string|max:10|unique:doc_lists,name,' . $docList->idx . ',idx',
+            'filename' => 'required|string|max:20',
+            'path' => 'required|string|max:20',
+            'language' => 'nullable|exists:languages,idx',
+            'reference' => 'nullable|string|max:20',
+        ]);
+
         $docList->update($request->all());
         return redirect()->route('doc_lists.index')->with('success', 'Updated successfully.');
     }

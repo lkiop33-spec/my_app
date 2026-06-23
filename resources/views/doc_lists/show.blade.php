@@ -28,7 +28,7 @@
                             
                             <div class="bg-gray-900/50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt class="text-sm font-medium text-gray-400">type</dt>
-                                <dd class="mt-1 text-sm text-white sm:mt-0 sm:col-span-2">{{ $docList->type }}</dd>
+                                <dd class="mt-1 text-sm text-white sm:mt-0 sm:col-span-2">{{ $docList->typeRelationship?->mtype ?? 'N/A' }}</dd>
                             </div>
                             <div class="bg-gray-800 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt class="text-sm font-medium text-gray-400">name</dt>
@@ -44,7 +44,7 @@
                             </div>
                             <div class="bg-gray-900/50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt class="text-sm font-medium text-gray-400">language</dt>
-                                <dd class="mt-1 text-sm text-white sm:mt-0 sm:col-span-2">{{ $docList->language }}</dd>
+                                <dd class="mt-1 text-sm text-white sm:mt-0 sm:col-span-2">{{ $docList->languageRelationship?->mlanguage ?? 'N/A' }}</dd>
                             </div>
                             <div class="bg-gray-800 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt class="text-sm font-medium text-gray-400">reference</dt>

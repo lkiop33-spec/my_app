@@ -38,11 +38,11 @@
                                 @foreach($doc_lists as $item)
                                     <tr class="border-b border-gray-700 hover:bg-gray-700/50">
                                         <td class="px-6 py-4 font-medium text-white">{{ $item->idx ?? $item->id }}</td>
-                                        <td class="px-6 py-4">{{ $item->type }}</td>
+                                        <td class="px-6 py-4">{{ $item->typeRelationship?->mtype ?? 'N/A' }}</td>
                                         <td class="px-6 py-4">{{ $item->name }}</td>
                                         <td class="px-6 py-4">{{ $item->filename }}</td>
                                         <td class="px-6 py-4">{{ $item->path }}</td>
-                                        <td class="px-6 py-4">{{ $item->language }}</td>
+                                        <td class="px-6 py-4">{{ $item->languageRelationship?->mlanguage ?? 'N/A' }}</td>
                                         <td class="px-6 py-4">{{ $item->reference }}</td>
                                         <td class="px-6 py-4 text-right space-x-2">
                                             <a href="{{ route('doc_lists.show', $item->idx ?? $item->id) }}" class="font-medium text-blue-400 hover:text-blue-300">View</a>

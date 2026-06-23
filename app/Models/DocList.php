@@ -20,4 +20,21 @@ class DocList extends Model
         'language',
         'reference',
     ];
+
+    /**
+     * Get the type of the document.
+     */
+    public function typeRelationship()
+    {
+        return $this->belongsTo(Type::class, 'type', 'idx');
+    }
+
+    /**
+     * Get the language of the document.
+     */
+    public function languageRelationship()
+    {
+        return $this->belongsTo(Language::class, 'language', 'idx');
+    }
 }
+
