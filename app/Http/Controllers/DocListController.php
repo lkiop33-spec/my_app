@@ -6,6 +6,8 @@ use App\Models\DocList;
 use App\Models\Type;
 use App\Models\Language;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File;
 
 class DocListController extends Controller
 {
@@ -36,13 +38,31 @@ class DocListController extends Controller
         $request->validate([
             'type' => 'required|exists:types,idx',
             'name' => 'required|string|max:10|unique:doc_lists,name',
-            'filename' => 'required|string|max:20',
-            'path' => 'required|string|max:20',
+            'doc_file' => 'required|file|max:2048',
             'language' => 'nullable|exists:languages,idx',
             'reference' => 'nullable|string|max:20',
         ]);
 
-        DocList::create($request->all());
+        $data = $request->except('doc_file');
+        
+        if ($request->hasFile('doc_file')) {
+            $file = $request->file('doc_file');
+            // Strict 20-character filename limit validation: 10 random characters + extension (approx 15 chars total)
+            $filename = Str::random(10) . '.' . $file->getClientOriginalExtension();
+            $path = 'uploads';
+
+            $uploadsPath = public_path($path);
+            if (!File::isDirectory($uploadsPath)) {
+                File::makeDirectory($uploadsPath, 0755, true, true);
+            }
+
+            $file->move($uploadsPath, $filename);
+            
+            $data['filename'] = $filename;
+            $data['path'] = $path;
+        }
+
+        DocList::create($data);
         return redirect()->route('doc_lists.index')->with('success', 'Created successfully.');
     }
 
@@ -76,13 +96,35 @@ class DocListController extends Controller
         $request->validate([
             'type' => 'required|exists:types,idx',
             'name' => 'required|string|max:10|unique:doc_lists,name,' . $docList->idx . ',idx',
-            'filename' => 'required|string|max:20',
-            'path' => 'required|string|max:20',
+            'doc_file' => 'nullable|file|max:2048',
             'language' => 'nullable|exists:languages,idx',
             'reference' => 'nullable|string|max:20',
         ]);
 
-        $docList->update($request->all());
+        $data = $request->except('doc_file');
+
+        if ($request->hasFile('doc_file')) {
+            $file = $request->file('doc_file');
+            $filename = Str::random(10) . '.' . $file->getClientOriginalExtension();
+            $path = 'uploads';
+
+            $uploadsPath = public_path($path);
+            if (!File::isDirectory($uploadsPath)) {
+                File::makeDirectory($uploadsPath, 0755, true, true);
+            }
+
+            $file->move($uploadsPath, $filename);
+
+            // Delete old file
+            if ($docList->filename && $docList->path && File::exists(public_path($docList->path . '/' . $docList->filename))) {
+                File::delete(public_path($docList->path . '/' . $docList->filename));
+            }
+
+            $data['filename'] = $filename;
+            $data['path'] = $path;
+        }
+
+        $docList->update($data);
         return redirect()->route('doc_lists.index')->with('success', 'Updated successfully.');
     }
 
@@ -92,6 +134,11 @@ class DocListController extends Controller
     public function destroy($id)
     {
         $docList = DocList::findOrFail($id);
+        
+        if ($docList->filename && $docList->path && File::exists(public_path($docList->path . '/' . $docList->filename))) {
+            File::delete(public_path($docList->path . '/' . $docList->filename));
+        }
+
         $docList->delete();
         return redirect()->route('doc_lists.index')->with('success', 'Deleted successfully.');
     }

@@ -1,4 +1,3 @@
-
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-white leading-tight">
@@ -10,10 +9,9 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-100">
-                    <form method="POST" action="{{ route('pcb_image_tables.update', $pcbImageTable->idx ?? $pcbImageTable->id) }}" class="space-y-6">
+                    <form method="POST" action="{{ route('pcb_image_tables.update', $pcbImageTable->idx ?? $pcbImageTable->id) }}" enctype="multipart/form-data" class="space-y-6">
                         @csrf
                         @method("PUT")
-                        
                         
                         <div>
                             <x-input-label for="PCB_Number" value="PCB Number" class="text-gray-300" />
@@ -31,8 +29,16 @@
                         </div>
                         
                         <div>
-                            <x-input-label for="Image" value="Image" class="text-gray-300" />
-                            <x-text-input id="Image" name="Image" type="text" class="mt-1 block w-full bg-gray-900 border-gray-700 text-white" value="{{ old('Image', $pcbImageTable->Image) }}" />
+                            <x-input-label for="Image" value="Image (File)" class="text-gray-300" />
+                            @if($pcbImageTable->Image)
+                                <div class="mb-2 text-xs text-gray-400">
+                                    현재 파일: <a href="{{ asset('uploads/' . $pcbImageTable->Image) }}" target="_blank" class="text-blue-400 hover:underline">{{ $pcbImageTable->Image }}</a>
+                                </div>
+                            @endif
+                            <input id="Image" name="Image" type="file" accept="image/*" class="mt-1 block w-full text-sm text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-600 file:text-white hover:file:bg-indigo-700 cursor-pointer" />
+                            @error('Image')
+                                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
                         
                         <div>

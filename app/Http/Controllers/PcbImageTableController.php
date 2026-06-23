@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\PcbImageTable;
 use App\Models\PcbTable;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File;
 
 class PcbImageTableController extends Controller
 {
@@ -33,12 +35,26 @@ class PcbImageTableController extends Controller
     {
         $request->validate([
             'PCB_Number' => 'required|exists:pcb_tables,idx',
-            'Image' => 'required|string|max:100',
+            'Image' => 'required|file|image|mimes:png,jpg,jpeg|max:2048',
             'BoundBox' => 'nullable|string|max:100',
             'Other' => 'nullable|string|max:100',
         ]);
 
-        PcbImageTable::create($request->all());
+        $data = $request->all();
+        if ($request->hasFile('Image')) {
+            $file = $request->file('Image');
+            $filename = Str::random(10) . '.' . $file->getClientOriginalExtension();
+            
+            $uploadsPath = public_path('uploads');
+            if (!File::isDirectory($uploadsPath)) {
+                File::makeDirectory($uploadsPath, 0755, true, true);
+            }
+            
+            $file->move($uploadsPath, $filename);
+            $data['Image'] = $filename;
+        }
+
+        PcbImageTable::create($data);
         return redirect()->route('pcb_image_tables.index')->with('success', 'Created successfully.');
     }
 
@@ -70,12 +86,34 @@ class PcbImageTableController extends Controller
 
         $request->validate([
             'PCB_Number' => 'required|exists:pcb_tables,idx',
-            'Image' => 'required|string|max:100',
+            'Image' => 'nullable|file|image|mimes:png,jpg,jpeg|max:2048',
             'BoundBox' => 'nullable|string|max:100',
             'Other' => 'nullable|string|max:100',
         ]);
 
-        $pcbImageTable->update($request->all());
+        $data = $request->all();
+        if ($request->hasFile('Image')) {
+            $file = $request->file('Image');
+            $filename = Str::random(10) . '.' . $file->getClientOriginalExtension();
+            
+            $uploadsPath = public_path('uploads');
+            if (!File::isDirectory($uploadsPath)) {
+                File::makeDirectory($uploadsPath, 0755, true, true);
+            }
+            
+            $file->move($uploadsPath, $filename);
+            
+            // Delete old file
+            if ($pcbImageTable->Image && File::exists($uploadsPath . '/' . $pcbImageTable->Image)) {
+                File::delete($uploadsPath . '/' . $pcbImageTable->Image);
+            }
+            
+            $data['Image'] = $filename;
+        } else {
+            unset($data['Image']);
+        }
+
+        $pcbImageTable->update($data);
         return redirect()->route('pcb_image_tables.index')->with('success', 'Updated successfully.');
     }
 
@@ -85,6 +123,12 @@ class PcbImageTableController extends Controller
     public function destroy($id)
     {
         $pcbImageTable = PcbImageTable::findOrFail($id);
+        
+        $uploadsPath = public_path('uploads');
+        if ($pcbImageTable->Image && File::exists($uploadsPath . '/' . $pcbImageTable->Image)) {
+            File::delete($uploadsPath . '/' . $pcbImageTable->Image);
+        }
+
         $pcbImageTable->delete();
         return redirect()->route('pcb_image_tables.index')->with('success', 'Deleted successfully.');
     }
