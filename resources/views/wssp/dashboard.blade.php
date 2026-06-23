@@ -13,25 +13,25 @@
                 <!-- 활성 작업자 수 -->
                 <div class="bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg flex flex-col p-6 border border-gray-700">
                     <dt class="text-sm font-medium text-gray-400 truncate">활성 작업자 수 (Active Workers)</dt>
-                    <dd class="mt-2 text-3xl font-semibold text-white">42</dd>
+                    <dd class="mt-2 text-3xl font-semibold text-white">{{ $activeWorkers }}</dd>
                 </div>
 
                 <!-- 평균 숙련도 향상률 -->
                 <div class="bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg flex flex-col p-6 border border-gray-700">
                     <dt class="text-sm font-medium text-gray-400 truncate">평균 숙련도 향상률 (Skill Growth %)</dt>
-                    <dd class="mt-2 text-3xl font-semibold text-green-400">+15.8%</dd>
+                    <dd class="mt-2 text-3xl font-semibold text-green-400">{{ $skillGrowth }}</dd>
                 </div>
 
                 <!-- 실시간 가이드 가동률 -->
                 <div class="bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg flex flex-col p-6 border border-gray-700">
                     <dt class="text-sm font-medium text-gray-400 truncate">실시간 가이드 가동률 (Guide Usage)</dt>
-                    <dd class="mt-2 text-3xl font-semibold text-blue-400">92.4%</dd>
+                    <dd class="mt-2 text-3xl font-semibold text-blue-400">{{ $guideUsage }}</dd>
                 </div>
 
                 <!-- 미처리 공정 오류 -->
                 <div class="bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg flex flex-col p-6 border border-gray-700">
                     <dt class="text-sm font-medium text-gray-400 truncate">미처리 공정 오류 (Pending Errors)</dt>
-                    <dd class="mt-2 text-3xl font-semibold text-red-500">3</dd>
+                    <dd class="mt-2 text-3xl font-semibold text-red-500">{{ $pendingErrors }}</dd>
                 </div>
             </div>
 

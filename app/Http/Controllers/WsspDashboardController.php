@@ -4,11 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use App\Models\User;
 
 class WsspDashboardController extends Controller
 {
     public function index()
     {
+        // Dynamic active workers count (total registered users)
+        $activeWorkers = User::count();
+        $skillGrowth = '+15.8%';
+        $guideUsage = '92.4%';
+        $pendingErrors = 3;
+
         // 1. Line Chart Data (Last 7 days completion time trend)
         $categoriesLine = [];
         $dataLine = [];
@@ -26,6 +33,10 @@ class WsspDashboardController extends Controller
         $dataRadarGoal = [90, 90, 90, 90, 90];
 
         return view('wssp.dashboard', [
+            'activeWorkers' => $activeWorkers,
+            'skillGrowth' => $skillGrowth,
+            'guideUsage' => $guideUsage,
+            'pendingErrors' => $pendingErrors,
             'lineChartData' => json_encode([
                 'categories' => $categoriesLine,
                 'data' => $dataLine
@@ -38,3 +49,4 @@ class WsspDashboardController extends Controller
         ]);
     }
 }
+
