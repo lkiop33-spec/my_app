@@ -1,10 +1,10 @@
 <section>
     <header>
-        <h2 class="text-lg font-medium text-gray-900">
+        <h2 class="text-lg font-medium text-white">
             비밀번호 변경
         </h2>
 
-        <p class="mt-1 text-sm text-gray-600">
+        <p class="mt-1 text-sm text-gray-400">
             보안을 위해 길고 무작위인 비밀번호를 사용하세요.
         </p>
     </header>
@@ -40,9 +40,10 @@
                     x-show="show"
                     x-transition
                     x-init="setTimeout(() => show = false, 2000)"
-                    class="text-sm text-gray-600"
+                    class="text-sm text-gray-400"
                 >저장되었습니다.</p>
             @endif
         </div>
     </form>
 </section>
+

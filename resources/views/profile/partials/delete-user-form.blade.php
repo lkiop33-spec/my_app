@@ -1,10 +1,10 @@
 <section class="space-y-6">
     <header>
-        <h2 class="text-lg font-medium text-gray-900">
+        <h2 class="text-lg font-medium text-white">
             계정 삭제
         </h2>
 
-        <p class="mt-1 text-sm text-gray-600">
+        <p class="mt-1 text-sm text-gray-400">
             계정을 삭제하면 모든 데이터가 영구적으로 삭제됩니다. 삭제 전에 보관할 데이터를 다운로드해 두세요.
         </p>
     </header>
@@ -19,11 +19,11 @@
             @csrf
             @method('delete')
 
-            <h2 class="text-lg font-medium text-gray-900">
+            <h2 class="text-lg font-medium text-white">
                 정말로 계정을 삭제하시겠습니까?
             </h2>
 
-            <p class="mt-1 text-sm text-gray-600">
+            <p class="mt-1 text-sm text-gray-400">
                 계정 삭제 시 모든 데이터가 영구 삭제됩니다. 비밀번호를 입력해 삭제를 확인해 주세요.
             </p>
 
@@ -53,3 +53,4 @@
         </form>
     </x-modal>
 </section>
+
