@@ -9,9 +9,9 @@ use App\Models\Notice;
 $postsUpdated = 0;
 Post::where('created_at', 'like', '2026-%')->get()->each(function($post) use (&$postsUpdated) {
     $post->timestamps = false;
-    $post->created_at = $post->created_at->subYear();
+    $post->created_at = str_replace('2026-', '2025-', $post->created_at);
     if ($post->updated_at) {
-        $post->updated_at = $post->updated_at->subYear();
+        $post->updated_at = str_replace('2026-', '2025-', $post->updated_at);
     }
     $post->save();
     $postsUpdated++;
@@ -20,9 +20,9 @@ Post::where('created_at', 'like', '2026-%')->get()->each(function($post) use (&$
 $noticesUpdated = 0;
 Notice::where('created_at', 'like', '2026-%')->get()->each(function($notice) use (&$noticesUpdated) {
     $notice->timestamps = false;
-    $notice->created_at = $notice->created_at->subYear();
+    $notice->created_at = str_replace('2026-', '2025-', $notice->created_at);
     if ($notice->updated_at) {
-        $notice->updated_at = $notice->updated_at->subYear();
+        $notice->updated_at = str_replace('2026-', '2025-', $notice->updated_at);
     }
     $notice->save();
     $noticesUpdated++;
