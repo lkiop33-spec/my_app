@@ -36,7 +36,7 @@ class PcbImageTable extends Model
                 return $value;
             },
             set: fn ($value) => [
-                'Image' => '*** ENCRYPTED ***',
+                'Image' => 'ENCRYPTED',
                 'Image_enc' => \Illuminate\Support\Facades\Crypt::encryptString($value),
             ]
         );
@@ -56,7 +56,7 @@ class PcbImageTable extends Model
                 return $value;
             },
             set: fn ($value) => [
-                'BoundBox' => '*** ENCRYPTED ***',
+                'BoundBox' => 'ENCRYPTED',
                 'BoundBox_enc' => \Illuminate\Support\Facades\Crypt::encryptString($value),
             ]
         );
@@ -76,7 +76,7 @@ class PcbImageTable extends Model
                 return $value;
             },
             set: fn ($value) => [
-                'Other' => '*** ENCRYPTED ***',
+                'Other' => 'ENCRYPTED',
                 'Other_enc' => \Illuminate\Support\Facades\Crypt::encryptString($value),
             ]
         );
