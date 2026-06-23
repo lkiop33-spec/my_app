@@ -45,6 +45,7 @@ class PartTable extends Model
                 return $value;
             },
             set: fn ($value) => [
+                'Name' => '*** ENCRYPTED ***',
                 'Name_enc' => \Illuminate\Support\Facades\Crypt::encryptString($value),
             ]
         );
@@ -64,6 +65,7 @@ class PartTable extends Model
                 return $value;
             },
             set: fn ($value) => [
+                'Process_Detail' => '*** ENCRYPTED ***',
                 'Process_Detail_enc' => \Illuminate\Support\Facades\Crypt::encryptString($value),
             ]
         );
@@ -83,6 +85,7 @@ class PartTable extends Model
                 return $value;
             },
             set: fn ($value) => [
+                'Image_File' => '*** ENCRYPTED ***',
                 'Image_File_enc' => \Illuminate\Support\Facades\Crypt::encryptString($value),
             ]
         );

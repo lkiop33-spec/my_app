@@ -33,8 +33,8 @@ class WorkList extends Model
                 return $value;
             },
             set: fn ($value) => [
+                'partList' => '*** ENCRYPTED ***',
                 'partList_enc' => \Illuminate\Support\Facades\Crypt::encryptString($value),
-                // Avoid rewriting the original column to bypass constraint/length issues
             ]
         );
     }

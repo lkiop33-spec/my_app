@@ -35,6 +35,7 @@ class PcbTable extends Model
                 return $value;
             },
             set: fn ($value) => [
+                'Name_Type' => '*** ENCRYPTED ***',
                 'Name_Type_enc' => \Illuminate\Support\Facades\Crypt::encryptString($value),
             ]
         );
@@ -54,6 +55,7 @@ class PcbTable extends Model
                 return $value;
             },
             set: fn ($value) => [
+                'Image_File' => '*** ENCRYPTED ***',
                 'Image_File_enc' => \Illuminate\Support\Facades\Crypt::encryptString($value),
             ]
         );
