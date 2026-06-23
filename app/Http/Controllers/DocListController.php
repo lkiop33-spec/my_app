@@ -38,7 +38,7 @@ class DocListController extends Controller
         $request->validate([
             'type' => 'required|exists:types,idx',
             'name' => 'required|string|max:10|unique:doc_lists,name',
-            'doc_file' => 'required|file|max:2048',
+            'doc_file' => 'required|file|max:10240',
             'language' => 'nullable|exists:languages,idx',
             'reference' => 'nullable|string|max:20',
         ]);
@@ -96,7 +96,7 @@ class DocListController extends Controller
         $request->validate([
             'type' => 'required|exists:types,idx',
             'name' => 'required|string|max:10|unique:doc_lists,name,' . $docList->idx . ',idx',
-            'doc_file' => 'nullable|file|max:2048',
+            'doc_file' => 'nullable|file|max:10240',
             'language' => 'nullable|exists:languages,idx',
             'reference' => 'nullable|string|max:20',
         ]);

@@ -35,7 +35,7 @@ class PcbImageTableController extends Controller
     {
         $request->validate([
             'PCB_Number' => 'required|exists:pcb_tables,idx',
-            'Image' => 'required|file|image|mimes:png,jpg,jpeg|max:2048',
+            'Image' => 'required|file|image|mimes:png,jpg,jpeg|max:10240',
             'BoundBox' => 'nullable|string|max:100',
             'Other' => 'nullable|string|max:100',
         ]);
@@ -86,7 +86,7 @@ class PcbImageTableController extends Controller
 
         $request->validate([
             'PCB_Number' => 'required|exists:pcb_tables,idx',
-            'Image' => 'nullable|file|image|mimes:png,jpg,jpeg|max:2048',
+            'Image' => 'nullable|file|image|mimes:png,jpg,jpeg|max:10240',
             'BoundBox' => 'nullable|string|max:100',
             'Other' => 'nullable|string|max:100',
         ]);
