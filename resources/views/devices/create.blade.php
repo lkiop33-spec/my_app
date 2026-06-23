@@ -27,7 +27,17 @@
                         
                         <div>
                             <x-input-label for="location" value="location" class="text-gray-300" />
-                            <x-text-input id="location" name="location" type="text" class="mt-1 block w-full bg-gray-900 border-gray-700 text-white" value="{{ old('location', '') }}" />
+                            <select id="location" name="location" class="mt-1 block w-full bg-gray-900 border-gray-700 text-white rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                <option value="">{{ __('Select Location') }}</option>
+                                @foreach($locations as $loc)
+                                    <option value="{{ $loc->idx }}" {{ old('location', '') == $loc->idx ? 'selected' : '' }}>
+                                        {{ $loc->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('location')
+                                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
                         
                         <div>

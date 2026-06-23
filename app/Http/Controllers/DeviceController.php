@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Device;
+use App\Models\Location;
 use Illuminate\Http\Request;
 
 class DeviceController extends Controller
@@ -21,7 +22,8 @@ class DeviceController extends Controller
      */
     public function create()
     {
-        return view('devices.create');
+        $locations = Location::all();
+        return view('devices.create', compact('locations'));
     }
 
     /**
@@ -29,6 +31,13 @@ class DeviceController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required|string|max:20|unique:devices,name',
+            'password' => 'required|string|max:20|unique:devices,password',
+            'location' => 'required|exists:locations,idx',
+            'version' => 'required|string|max:20',
+        ]);
+
         Device::create($request->all());
         return redirect()->route('devices.index')->with('success', 'Created successfully.');
     }
@@ -48,7 +57,8 @@ class DeviceController extends Controller
     public function edit($id)
     {
         $device = Device::findOrFail($id);
-        return view('devices.edit', compact('device'));
+        $locations = Location::all();
+        return view('devices.edit', compact('device', 'locations'));
     }
 
     /**
@@ -57,6 +67,14 @@ class DeviceController extends Controller
     public function update(Request $request, $id)
     {
         $device = Device::findOrFail($id);
+
+        $request->validate([
+            'name' => 'required|string|max:20|unique:devices,name,' . $device->idx . ',idx',
+            'password' => 'required|string|max:20|unique:devices,password,' . $device->idx . ',idx',
+            'location' => 'required|exists:locations,idx',
+            'version' => 'required|string|max:20',
+        ]);
+
         $device->update($request->all());
         return redirect()->route('devices.index')->with('success', 'Updated successfully.');
     }

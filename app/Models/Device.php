@@ -18,4 +18,13 @@ class Device extends Model
         'location',
         'version',
     ];
+
+    /**
+     * Get the location that the device belongs to.
+     */
+    public function locationRelationship()
+    {
+        return $this->belongsTo(Location::class, 'location', 'idx');
+    }
 }
+

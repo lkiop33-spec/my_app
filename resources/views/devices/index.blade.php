@@ -38,7 +38,7 @@
                                         <td class="px-6 py-4 font-medium text-white">{{ $item->idx ?? $item->id }}</td>
                                         <td class="px-6 py-4">{{ $item->name }}</td>
                                         <td class="px-6 py-4">{{ $item->password }}</td>
-                                        <td class="px-6 py-4">{{ $item->location }}</td>
+                                        <td class="px-6 py-4">{{ $item->locationRelationship?->name ?? 'N/A' }}</td>
                                         <td class="px-6 py-4">{{ $item->version }}</td>
                                         <td class="px-6 py-4 text-right space-x-2">
                                             <a href="{{ route('devices.show', $item->idx ?? $item->id) }}" class="font-medium text-blue-400 hover:text-blue-300">View</a>
