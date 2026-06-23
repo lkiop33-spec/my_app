@@ -35,7 +35,7 @@ class WorkingListApiController extends Controller
         // 3. 모델 생성 및 저장
         $workingList = WorkingList::create([
             'no' => $generatedNo,
-            'worker_name' => $request->input('worker_name'),
+            'worker_name' => $request->input('worker_name') ?? '김태균',
             'text' => $request->input('text'),
             'datetime' => $datetime,
         ]);
