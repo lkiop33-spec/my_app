@@ -38,4 +38,21 @@ class WorkList extends Model
             ]
         );
     }
+
+    /**
+     * Get the PCB board that the work list belongs to.
+     */
+    public function pcbRelationship()
+    {
+        return $this->belongsTo(PcbTable::class, 'pcbIDX', 'idx');
+    }
+
+    /**
+     * Get the worker (user) that the work list belongs to.
+     */
+    public function memberRelationship()
+    {
+        return $this->belongsTo(User::class, 'memberIDX', 'id');
+    }
 }
+

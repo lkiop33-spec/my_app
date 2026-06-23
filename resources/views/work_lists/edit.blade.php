@@ -21,13 +21,33 @@
                         </div>
                         
                         <div>
-                            <x-input-label for="pcbIDX" value="pcbIDX" class="text-gray-300" />
-                            <x-text-input id="pcbIDX" name="pcbIDX" type="text" class="mt-1 block w-full bg-gray-900 border-gray-700 text-white" value="{{ old('pcbIDX', $workList->pcbIDX) }}" />
+                            <x-input-label for="pcbIDX" value="PCB Board (pcbIDX)" class="text-gray-300" />
+                            <select id="pcbIDX" name="pcbIDX" class="mt-1 block w-full bg-gray-900 border-gray-700 text-white rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                <option value="">{{ __('Select PCB') }}</option>
+                                @foreach($pcbs as $pcb)
+                                    <option value="{{ $pcb->idx }}" {{ old('pcbIDX', $workList->pcbIDX) == $pcb->idx ? 'selected' : '' }}>
+                                        {{ $pcb->PCB_Number }} ({{ $pcb->Name_Type }})
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('pcbIDX')
+                                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
                         
                         <div>
-                            <x-input-label for="memberIDX" value="memberIDX" class="text-gray-300" />
-                            <x-text-input id="memberIDX" name="memberIDX" type="text" class="mt-1 block w-full bg-gray-900 border-gray-700 text-white" value="{{ old('memberIDX', $workList->memberIDX) }}" />
+                            <x-input-label for="memberIDX" value="Worker (memberIDX)" class="text-gray-300" />
+                            <select id="memberIDX" name="memberIDX" class="mt-1 block w-full bg-gray-900 border-gray-700 text-white rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                <option value="">{{ __('Select Worker') }}</option>
+                                @foreach($users as $user)
+                                    <option value="{{ $user->id }}" {{ old('memberIDX', $workList->memberIDX) == $user->id ? 'selected' : '' }}>
+                                        {{ $user->name }} ({{ $user->email }})
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('memberIDX')
+                                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
                         
                         <div class="flex items-center gap-4 pt-4">

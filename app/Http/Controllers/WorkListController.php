@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\WorkList;
+use App\Models\PcbTable;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class WorkListController extends Controller
@@ -21,7 +23,9 @@ class WorkListController extends Controller
      */
     public function create()
     {
-        return view('work_lists.create');
+        $pcbs = PcbTable::all();
+        $users = User::all();
+        return view('work_lists.create', compact('pcbs', 'users'));
     }
 
     /**
@@ -29,6 +33,12 @@ class WorkListController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'partList' => 'required|string|max:200',
+            'pcbIDX' => 'required|exists:pcb_tables,idx',
+            'memberIDX' => 'required|exists:users,id',
+        ]);
+
         WorkList::create($request->all());
         return redirect()->route('work_lists.index')->with('success', 'Created successfully.');
     }
@@ -48,7 +58,9 @@ class WorkListController extends Controller
     public function edit($id)
     {
         $workList = WorkList::findOrFail($id);
-        return view('work_lists.edit', compact('workList'));
+        $pcbs = PcbTable::all();
+        $users = User::all();
+        return view('work_lists.edit', compact('workList', 'pcbs', 'users'));
     }
 
     /**
@@ -57,6 +69,13 @@ class WorkListController extends Controller
     public function update(Request $request, $id)
     {
         $workList = WorkList::findOrFail($id);
+
+        $request->validate([
+            'partList' => 'required|string|max:200',
+            'pcbIDX' => 'required|exists:pcb_tables,idx',
+            'memberIDX' => 'required|exists:users,id',
+        ]);
+
         $workList->update($request->all());
         return redirect()->route('work_lists.index')->with('success', 'Updated successfully.');
     }

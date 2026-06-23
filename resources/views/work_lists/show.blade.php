@@ -32,11 +32,11 @@
                             </div>
                             <div class="bg-gray-800 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt class="text-sm font-medium text-gray-400">pcbIDX</dt>
-                                <dd class="mt-1 text-sm text-white sm:mt-0 sm:col-span-2">{{ $workList->pcbIDX }}</dd>
+                                <dd class="mt-1 text-sm text-white sm:mt-0 sm:col-span-2">{{ $workList->pcbRelationship?->PCB_Number ?? 'N/A' }}</dd>
                             </div>
                             <div class="bg-gray-900/50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt class="text-sm font-medium text-gray-400">memberIDX</dt>
-                                <dd class="mt-1 text-sm text-white sm:mt-0 sm:col-span-2">{{ $workList->memberIDX }}</dd>
+                                <dd class="mt-1 text-sm text-white sm:mt-0 sm:col-span-2">{{ $workList->memberRelationship?->name ?? 'N/A' }}</dd>
                             </div>
                         </dl>
                     </div>

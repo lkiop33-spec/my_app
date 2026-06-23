@@ -36,8 +36,8 @@
                                     <tr class="border-b border-gray-700 hover:bg-gray-700/50">
                                         <td class="px-6 py-4 font-medium text-white">{{ $item->idx ?? $item->id }}</td>
                                         <td class="px-6 py-4">{{ $item->partList }}</td>
-                                        <td class="px-6 py-4">{{ $item->pcbIDX }}</td>
-                                        <td class="px-6 py-4">{{ $item->memberIDX }}</td>
+                                        <td class="px-6 py-4">{{ $item->pcbRelationship?->PCB_Number ?? 'N/A' }}</td>
+                                        <td class="px-6 py-4">{{ $item->memberRelationship?->name ?? 'N/A' }}</td>
                                         <td class="px-6 py-4 text-right space-x-2">
                                             <a href="{{ route('work_lists.show', $item->idx ?? $item->id) }}" class="font-medium text-blue-400 hover:text-blue-300">View</a>
                                             <a href="{{ route('work_lists.edit', $item->idx ?? $item->id) }}" class="font-medium text-indigo-400 hover:text-indigo-300">Edit</a>
